@@ -1,5 +1,5 @@
-function app() {
+function initApp() {
   console.log('test app')
 }
 
-export default app;
+export default initApp;

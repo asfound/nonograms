@@ -1,4 +1,5 @@
-import './styles/style.css';
-import app from './app/app';
+import initApp from '@/app/app';
 
-app();
+import './styles/style.css';
+
+window.addEventListener('load', initApp);
