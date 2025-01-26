@@ -1,0 +1,56 @@
+.board {
+  margin: 0 auto;
+}
+
+table {
+  user-select: none;
+
+  border-collapse: collapse;
+
+  margin: 0;
+
+  font-size: 0.625rem;
+  text-align: center;
+
+  background-color: var(--base-background);
+}
+
+thead,
+th {
+  margin: 0;
+  padding: 0;
+  font-size: 0;
+}
+
+td {
+  margin: 0;
+  padding: 0.625rem;
+  border: var(--border-thin);
+}
+
+td:first-child {
+  padding-right: 0;
+  border-right: var(--border-thick);
+  border-left: var(--border-thick);
+
+  text-align: right;
+  letter-spacing: 0.425rem;
+}
+
+tr:first-child td {
+  writing-mode: vertical-lr;
+  text-align: end;
+  text-orientation: upright;
+}
+
+tbody tr:first-child {
+  border-bottom: var(--border-thick);
+}
+
+td:nth-child(5n-4) {
+  border-right: var(--border-thick);
+}
+
+tr:nth-child(5n-4) {
+  border-bottom: var(--border-thick);
+}

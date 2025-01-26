@@ -38,3 +38,11 @@ export const header = createElementFactory('header');
 
 export const main = createElementFactory('main');
 
+export const table = createElementFactory('table');
+export const thead = createElementFactory('thead');
+export const tbody = createElementFactory('tbody');
+export const tr = createElementFactory('tr');
+export const th = createElementFactory('th');
+export const td = createElementFactory('td');
+
+export const span = createElementFactory('span');
