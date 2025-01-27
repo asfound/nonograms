@@ -27,8 +27,8 @@ function createPuzzleBoard(matrix) {
   const sideHints = calculateSideHints(matrix);
 
   const topRowElement = tr({});
-  const corner = td({});
-  topRowElement.appendChild(corner);
+  const cornerElement = td({ innerText: '駱駝'});
+  topRowElement.appendChild(cornerElement);
 
   const tableBody = tbody({});
   tableBody.appendChild(topRowElement);
@@ -36,6 +36,7 @@ function createPuzzleBoard(matrix) {
   topHints.forEach((hint) => {
     const tdElement = td({
       innerText: hint.join('\n'),
+      className: styles.hint
     });
 
     topRowElement.appendChild(tdElement);
@@ -45,6 +46,7 @@ function createPuzzleBoard(matrix) {
     const rowElement = tr({});
     const hintElement = td({
       innerText: sideHints[index].join(' '),
+      className: styles.hint
     });
 
     const cells = row.map(() => {

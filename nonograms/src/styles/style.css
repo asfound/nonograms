@@ -1,5 +1,6 @@
 :root {
   --main: black;
+  --secondary: white;
   --border-thick: 2px solid var(--main);
   --border-thin: 1px solid var(--main);
   --cell-size: 0.525rem;

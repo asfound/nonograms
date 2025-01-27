@@ -63,3 +63,19 @@ td:nth-child(5n-4) {
 tr:nth-child(5n-4) {
   border-bottom: var(--border-thick);
 }
+
+tr:first-child td:first-child {
+  padding: 0;
+  padding-left: 0.1rem;
+
+  font-size: calc(var(--cell-size) * 2.5);
+  color: var(--secondary);
+  text-align: center;
+  vertical-align: middle;
+
+  background-color: var(--main);
+}
+
+.hint {
+  font-weight: 500;
+}

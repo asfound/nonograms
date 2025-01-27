@@ -1,6 +1,7 @@
 const templates = [
   {
     name: 'bomb',
+    icon: '爆弾',
     size: 5,
     matrix: [
       [0, 0, 1, 1, 0],
@@ -12,6 +13,7 @@ const templates = [
   },
   {
     name: 'camel',
+    icon: '駱駝',
     size: 5,
     matrix: [
       [0, 1, 0, 0, 0],
@@ -23,6 +25,7 @@ const templates = [
   },
   {
     name: 'chicken',
+    icon: '鶏',
     size: 5,
     matrix: [
       [0, 1, 0, 0, 0],
@@ -34,6 +37,7 @@ const templates = [
   },
   {
     name: 'heart',
+    icon: '心',
     size: 5,
     matrix: [
       [0, 1, 0, 1, 0],
@@ -45,6 +49,7 @@ const templates = [
   },
   {
     name: 'tetris',
+    icon: '積木',
     size: 5,
     matrix: [
       [0, 0, 1, 0, 0],
@@ -57,6 +62,7 @@ const templates = [
 
   {
     name: 'cat',
+    icon: '猫',
     size: 10,
     matrix: [
       [0, 0, 0, 0, 0, 0, 1, 1, 1, 0],
@@ -73,6 +79,7 @@ const templates = [
   },
   {
     name: 'dog',
+    icon: '犬',
     size: 10,
     matrix: [
       [1, 1, 0, 0, 1, 1, 0, 0, 0, 0],
@@ -89,6 +96,7 @@ const templates = [
   },
   {
     name: 'kettle',
+    icon: '鉄瓶',
     size: 10,
     matrix: [
       [0, 0, 1, 1, 1, 1, 1, 0, 0, 0],
@@ -105,6 +113,7 @@ const templates = [
   },
   {
     name: 'plum',
+    icon: '梅',
     size: 10,
     matrix: [
       [0, 0, 0, 0, 0, 1, 1, 1, 1, 0],
@@ -121,6 +130,7 @@ const templates = [
   },
   {
     name: 'yacht',
+    icon: '帆船',
     size: 10,
     matrix: [
       [0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
@@ -138,6 +148,7 @@ const templates = [
 
   {
     name: 'lion',
+    icon: '獅子',
     size: 15,
     matrix: [
       [0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0],
@@ -158,7 +169,8 @@ const templates = [
     ],
   },
   {
-    name: 'mikkey',
+    name: 'mickey',
+    icon: '鼠',
     size: 15,
     matrix: [
       [0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0],
@@ -180,6 +192,7 @@ const templates = [
   },
   {
     name: 'rose',
+    icon: '薔薇',
     size: 15,
     matrix: [
       [0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0],
@@ -201,6 +214,7 @@ const templates = [
   },
   {
     name: 'squirrel',
+    icon: '栗鼠',
     size: 15,
     matrix: [
       [0, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0],
@@ -222,6 +236,7 @@ const templates = [
   },
   {
     name: 'swan',
+    icon: '白鳥',
     size: 15,
     matrix: [
       [0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -243,6 +258,7 @@ const templates = [
   },
   {
     name: 'tractor',
+    icon: '耕耘機',
     size: 15,
     matrix: [
       [0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0],
