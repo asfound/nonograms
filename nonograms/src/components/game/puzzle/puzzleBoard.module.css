@@ -9,7 +9,7 @@ table {
 
   margin: 0;
 
-  font-size: 0.625rem;
+  font-size: calc(var(--cell-size) * 1.2);
   text-align: center;
 
   background-color: var(--base-background);
@@ -24,23 +24,32 @@ th {
 
 td {
   margin: 0;
-  padding: 0.625rem;
+  padding: calc(var(--cell-size) / 1.2);
   border: var(--border-thin);
 }
 
+.cell {
+  width: 100%;
+  width: var(--cell-size);
+  height: var(--cell-size);
+}
+
 td:first-child {
-  padding-right: 0;
   border-right: var(--border-thick);
   border-left: var(--border-thick);
 
+  line-height: 0;
   text-align: right;
-  letter-spacing: 0.425rem;
+  word-spacing: var(--cell-size);
 }
 
 tr:first-child td {
-  writing-mode: vertical-lr;
-  text-align: end;
-  text-orientation: upright;
+  height: fit-content;
+  padding-bottom: 0.225rem;
+
+  line-height: 1.225rem;
+  white-space: pre;
+  vertical-align: bottom;
 }
 
 tbody tr:first-child {

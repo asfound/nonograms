@@ -2,6 +2,7 @@
   --main: black;
   --border-thick: 2px solid var(--main);
   --border-thin: 1px solid var(--main);
+  --cell-size: 0.525rem;
 
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }

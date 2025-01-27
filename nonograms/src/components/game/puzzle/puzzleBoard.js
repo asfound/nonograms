@@ -35,7 +35,7 @@ function createPuzzleBoard(matrix) {
 
   topHints.forEach((hint) => {
     const tdElement = td({
-      innerText: hint.join(' '),
+      innerText: hint.join('\n'),
     });
 
     topRowElement.appendChild(tdElement);
@@ -48,7 +48,7 @@ function createPuzzleBoard(matrix) {
     });
 
     const cells = row.map(() => {
-      const cellElement = td({});
+      const cellElement = td({ className: styles.cell });
       return cellElement;
     });
 
