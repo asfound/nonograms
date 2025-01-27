@@ -1,7 +1,7 @@
 import {
   calculateSideHints,
   calculateTopHints,
-} from '@/components/game/gameUtils';
+} from '@/components/puzzleBoard/boardUtils';
 import { div, table, thead, tbody, tr, th, td } from '@/utils/createElement';
 
 import styles from './puzzleBoard.module.css';
@@ -43,15 +43,29 @@ function createPuzzleBoard(matrix, icon) {
     topRowElement.appendChild(tdElement);
   });
 
-  const rows = matrix.map((row, index) => {
+  const rows = matrix.map((row, rowIndex) => {
     const rowElement = tr({});
     const hintElement = td({
-      innerText: sideHints[index].join(' '),
+      innerText: sideHints[rowIndex].join(' '),
       className: styles.hint,
     });
 
-    const cells = row.map(() => {
+    const cells = row.map((_, colIndex) => {
       const cellElement = td({ className: styles.cell });
+
+      cellElement.addEventListener('click', (event) => {
+        if (event.button === 0) {
+          cellElement.classList.toggle(styles.filled);
+          cellElement.classList.remove(styles.crossed);
+        }
+      });
+
+      cellElement.addEventListener('contextmenu', (event) => {
+        event.preventDefault();
+        cellElement.classList.toggle(styles.crossed);
+        cellElement.classList.remove(styles.filled);
+      });
+
       return cellElement;
     });
 

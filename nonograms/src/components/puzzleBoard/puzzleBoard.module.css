@@ -34,6 +34,36 @@ td {
   height: var(--cell-size);
 }
 
+.filled {
+  background-color: var(--main);
+}
+
+.crossed {
+  position: relative;
+}
+
+.crossed:before,
+.crossed:after {
+  content: '';
+
+  position: absolute;
+  top: 50%;
+
+
+  width: 140%;
+  height: 1px;
+
+  background-color: var(--main);
+}
+
+.crossed:before {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.crossed:after {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
 td:first-child {
   border-right: var(--border-thick);
   border-left: var(--border-thick);

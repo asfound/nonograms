@@ -11,8 +11,8 @@
 .select {
   margin-left: 0.625rem;
   padding: 0.225rem;
-  border-radius: 0;
   border: var(--border-thick);
+  border-radius: 0;
 
   font-size: 0.8rem;
   text-transform: capitalize;
