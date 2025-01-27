@@ -1,6 +1,8 @@
 import { div, label, option, select } from '@/utils/createElement';
 
-const sizes = [
+import styles from './puzzlesMenu.module.css';
+
+const SIZES = [
   { value: 5, label: 'Easy' },
   { value: 10, label: 'Medium' },
   { value: 15, label: 'Hard' },
@@ -14,21 +16,21 @@ const INITIAL_SIZE = 5;
  * @returns  {HTMLElement} levelsContainer
  */
 function createPuzzleMenu(templates, emitter) {
-  const levelsContainer = div({ className: 'levels' });
+  const levelsContainer = div({ className: styles.levels });
 
   const labelElement = label({
-    className: 'label',
+    className: styles.label,
     innerText: 'Choose puzzle: ',
   });
   labelElement.setAttribute('for', 'sizeSelect');
   levelsContainer.appendChild(labelElement);
 
   const sizeSelectElement = select({
-    className: 'select size',
+    className: styles.select,
     id: 'sizeSelect',
   });
 
-  sizes.forEach((size) => {
+  SIZES.forEach((size) => {
     const optionElement = option({ value: size.value, innerText: size.label });
     sizeSelectElement.appendChild(optionElement);
   });
@@ -36,7 +38,7 @@ function createPuzzleMenu(templates, emitter) {
   levelsContainer.appendChild(sizeSelectElement);
 
   const templateSelectElement = select({
-    className: 'select template',
+    className: styles.select,
   });
 
   /** @param {number} selectedSize */

@@ -1,0 +1,21 @@
+.levels {
+  margin: 0.425rem 0;
+  font-size: 0.8rem;
+}
+
+.label {
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.select {
+  margin-left: 0.625rem;
+  padding: 0.225rem;
+  border-radius: 0;
+  border: var(--border-thick);
+
+  font-size: 0.8rem;
+  text-transform: capitalize;
+
+  outline: none;
+}
