@@ -36,7 +36,11 @@ export const h1 = createElementFactory('h1');
 
 export const header = createElementFactory('header');
 
+export const label = createElementFactory('label');
+
 export const main = createElementFactory('main');
+
+export const option = createElementFactory('option');
 
 export const table = createElementFactory('table');
 export const thead = createElementFactory('thead');
@@ -44,5 +48,7 @@ export const tbody = createElementFactory('tbody');
 export const tr = createElementFactory('tr');
 export const th = createElementFactory('th');
 export const td = createElementFactory('td');
+
+export const select = createElementFactory('select');
 
 export const span = createElementFactory('span');

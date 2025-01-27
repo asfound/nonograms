@@ -8,8 +8,9 @@ import styles from './puzzleBoard.module.css';
 
 /**
  * @param {number[][]} matrix
+ * @param {string} icon
  */
-function createPuzzleBoard(matrix) {
+function createPuzzleBoard(matrix, icon) {
   const puzzleBoard = div({
     className: styles.board,
   });
@@ -27,7 +28,7 @@ function createPuzzleBoard(matrix) {
   const sideHints = calculateSideHints(matrix);
 
   const topRowElement = tr({});
-  const cornerElement = td({ innerText: '駱駝'});
+  const cornerElement = td({ innerText: icon });
   topRowElement.appendChild(cornerElement);
 
   const tableBody = tbody({});
@@ -36,7 +37,7 @@ function createPuzzleBoard(matrix) {
   topHints.forEach((hint) => {
     const tdElement = td({
       innerText: hint.join('\n'),
-      className: styles.hint
+      className: styles.hint,
     });
 
     topRowElement.appendChild(tdElement);
@@ -46,7 +47,7 @@ function createPuzzleBoard(matrix) {
     const rowElement = tr({});
     const hintElement = td({
       innerText: sideHints[index].join(' '),
-      className: styles.hint
+      className: styles.hint,
     });
 
     const cells = row.map(() => {
