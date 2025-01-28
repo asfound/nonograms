@@ -1,22 +1,26 @@
 import createGameState from '@/components/game/gameState';
 import templates from '@/components/game/templates';
+import { calcCells } from '@/components/puzzleBoard/boardUtils';
 import createPuzzleBoard from '@/components/puzzleBoard/puzzleBoard';
 import createPuzzleMenu from '@/components/puzzlesMenu/puzzlesMenu';
+import { div } from '@/utils/createElement';
 import createEventEmitter from '@/utils/eventEmitter';
 
 /**
  * @param {{ name: string, icon: string, size: number, matrix: number[][] }} template
- * @param {import('@/components/game/gameState').GameState} gameState
+ * @param {HTMLElement} gameContainer
+ * @param {import('@/utils/eventEmitter').EventEmitter} emitter
  */
-function renderTemplate(template, gameState) {
-  const oldPuzzle = gameState.getState().puzzle;
-  if (oldPuzzle instanceof HTMLElement) {
-    oldPuzzle.remove();
-  }
+function renderTemplate(template, gameContainer, emitter) {
+  gameContainer.replaceChildren();
 
-  const puzzle = createPuzzleBoard(template.matrix, template.icon);
-  gameState.updateState({ puzzle });
-  document.body.appendChild(puzzle);
+  const newPuzzleBoard = createPuzzleBoard(
+    template.matrix,
+    template.icon,
+    emitter
+  );
+
+  gameContainer.appendChild(newPuzzleBoard);
 }
 
 function initApp() {
@@ -25,13 +29,26 @@ function initApp() {
 
   const puzzleMenu = createPuzzleMenu(templates, emitter);
   document.body.appendChild(puzzleMenu);
-  renderTemplate(templates[0], gameState);
+
+  const gameContainer = div({ className: 'container' });
+  document.body.appendChild(gameContainer);
+
+  const initialPuzzle = templates[0];
+
+  renderTemplate(initialPuzzle, gameContainer, emitter);
+  gameState.updateState({ currentTemplateMatrix: initialPuzzle.matrix });
+  gameState.updateState({ correctCellsCount: calcCells(initialPuzzle.matrix) });
+
   emitter.on(
     'templateSelected',
     /** @param {{ name: string, icon: string, size: number, matrix: number[][] }} selectedTemplate */ (
       selectedTemplate
     ) => {
-      renderTemplate(selectedTemplate, gameState);
+      renderTemplate(selectedTemplate, gameContainer, emitter);
+      gameState.updateState({ currentTemplateMatrix: selectedTemplate.matrix });
+      gameState.updateState({
+        correctCellsCount: calcCells(selectedTemplate.matrix),
+      });
     }
   );
 }

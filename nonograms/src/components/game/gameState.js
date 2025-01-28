@@ -1,24 +1,33 @@
 /**
- * @typedef {Object} GameState
- * @property {() => { puzzle: Object | null }} getState
- * @property {function(Object): void} updateState  updateState - Updates the state with the provided object.
+ * @typedef {Object} State
+ * @property {number[][]} currentTemplateMatrix
+ * @property {number} correctCellsCount
  */
 
 /**
- * Creates a game state manager.
- * @param {Object} [initialState={}] - The initial state for the game.
+ * @typedef {Object} GameState
+ * @property {() => State} getState
+ * @property {(update: Partial<State>) => void} updateState
+
+/**
  * @returns {GameState}
  */
-
-function createGameState(initialState = {}) {
-  let state = { ...initialState, puzzle: null };
+function createGameState() {
+  /** @type {State} */
+  let state = {
+    currentTemplateMatrix: [],
+    correctCellsCount: 0,
+  };
 
   return {
+    /**
+     * @returns {State}
+     */
     getState() {
       return { ...state };
     },
 
-    /** @param {Object} update - An object containing the new state values. */
+    /** @param {Object} update  */
     updateState(update) {
       state = { ...state, ...update };
     },

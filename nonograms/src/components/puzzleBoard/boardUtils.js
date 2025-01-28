@@ -57,3 +57,11 @@ export function calculateSideHints(matrix) {
 
   return hints;
 }
+
+/**
+ * @param {number[][]} matrix
+ * @returns {number}
+ */
+export function calcCells(matrix) {
+  return matrix.flat().filter((cell) => cell === 1).length;
+}

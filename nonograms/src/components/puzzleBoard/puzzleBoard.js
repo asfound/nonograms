@@ -2,18 +2,16 @@ import {
   calculateSideHints,
   calculateTopHints,
 } from '@/components/puzzleBoard/boardUtils';
-import { div, table, thead, tbody, tr, th, td } from '@/utils/createElement';
+import { table, thead, tbody, tr, th, td } from '@/utils/createElement';
 
 import styles from './puzzleBoard.module.css';
 
 /**
  * @param {number[][]} matrix
  * @param {string} icon
+ * @param {import('@/utils/eventEmitter').EventEmitter} emitter
  */
-function createPuzzleBoard(matrix, icon) {
-  const puzzleBoard = div({
-    className: styles.board,
-  });
+function createPuzzleBoard(matrix, icon, emitter) {
 
   const tableElement = table({});
 
@@ -52,18 +50,34 @@ function createPuzzleBoard(matrix, icon) {
 
     const cells = row.map((_, colIndex) => {
       const cellElement = td({ className: styles.cell });
+      cellElement.setAttribute('data-state', '0');
 
       cellElement.addEventListener('click', (event) => {
         if (event.button === 0) {
-          cellElement.classList.toggle(styles.filled);
-          cellElement.classList.remove(styles.crossed);
+          const cellState = cellElement.getAttribute('data-state');
+          const updatedCellState = cellState !== '1' ? '1' : '0';
+          cellElement.setAttribute('data-state', updatedCellState);
+
+          emitter.emit('cellClick', {
+            rowIndex,
+            colIndex,
+            cellElement,
+            cellState: Number(updatedCellState),
+          });
         }
       });
 
       cellElement.addEventListener('contextmenu', (event) => {
         event.preventDefault();
-        cellElement.classList.toggle(styles.crossed);
-        cellElement.classList.remove(styles.filled);
+        const cellState = cellElement.getAttribute('data-state');
+        const updatedCellState = cellState !== '-1' ? '-1' : '0';
+        cellElement.setAttribute('data-state', updatedCellState);
+
+        emitter.emit('cellClick', {
+          rowIndex,
+          colIndex,
+          cellState: updatedCellState,
+        });
       });
 
       return cellElement;
@@ -75,9 +89,9 @@ function createPuzzleBoard(matrix, icon) {
 
   tableBody.append(...rows);
   tableElement.append(tableHeadElement, tableBody);
-  puzzleBoard.appendChild(tableElement);
 
-  return puzzleBoard;
+
+  return tableElement;
 }
 
 export default createPuzzleBoard;
