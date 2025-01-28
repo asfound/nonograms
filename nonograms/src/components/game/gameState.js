@@ -1,7 +1,10 @@
 /**
  * @typedef {Object} State
  * @property {number[][]} currentTemplateMatrix
+ * @property {number[][]} playerMatrix
  * @property {number} correctCellsCount
+ * @property {number} playerCorrectCellsCount
+ * @property {boolean} isGameOver
  */
 
 /**
@@ -16,7 +19,10 @@ function createGameState() {
   /** @type {State} */
   let state = {
     currentTemplateMatrix: [],
+    playerMatrix: [],
     correctCellsCount: 0,
+    playerCorrectCellsCount: 0,
+    isGameOver: true,
   };
 
   return {

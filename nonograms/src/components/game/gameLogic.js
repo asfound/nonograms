@@ -6,26 +6,33 @@
  * @param {import("@/components/game/gameState").GameState} gameState
  */
 export function checkCell({ rowIndex, colIndex, cellState }, gameState) {
-  const { currentTemplateMatrix, playerCorrectCellsCount } =
+  const { currentTemplateMatrix, playerMatrix, playerCorrectCellsCount } =
     gameState.getState();
 
-  const cellStateCode = Number(cellState);
   const correctCellState = currentTemplateMatrix[rowIndex][colIndex];
-  
+  const previousCellState = playerMatrix[rowIndex][colIndex];
+
+  const playerCellState = Number(cellState);
+
   let currentCorrectCellsCount = playerCorrectCellsCount;
 
-  const correctAdded = cellStateCode === correctCellState;
-  const correctRemoved = cellStateCode !== 1 && correctCellState === 1;
+  const isCorrectBlackAdded = playerCellState === 1 && correctCellState === 1;
+  const isCorrectBlackRemoved =
+    previousCellState === 1 && playerCellState !== 1 && correctCellState === 1;
 
-  if (correctAdded) {
+  if (isCorrectBlackAdded) {
     currentCorrectCellsCount += 1;
-  } else if (correctRemoved) {
+  } else if (isCorrectBlackRemoved) {
     currentCorrectCellsCount -= 1;
   }
 
+  const updatedPlayerMatrix = playerMatrix;
+  updatedPlayerMatrix[rowIndex][colIndex] = playerCellState;
+
   gameState.updateState({
-    playerCorrectCellsCount: currentCorrectCellsCount,
+    playerMatrix: updatedPlayerMatrix, playerCorrectCellsCount: currentCorrectCellsCount,
   });
+
 }
 
 /**
