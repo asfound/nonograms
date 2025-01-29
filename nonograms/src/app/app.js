@@ -118,8 +118,7 @@ function initApp() {
     emitter.on('cellClick', cellClickHandler);
   };
 
-  // TODO: templateChangeHandler
-  emitter.on('templateSelected', templateSelectHandler);
+  emitter.on('templateSelection', templateSelectHandler);
 
   emitter.on('cellClick', cellClickHandler);
 

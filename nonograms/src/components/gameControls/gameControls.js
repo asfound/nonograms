@@ -21,7 +21,7 @@ function createGameControls(gameState, templates, emitter) {
     const selectedTemplate = templates.find(
       (template) => template.name === currentTemplateName
     );
-    emitter.emit('templateSelected', selectedTemplate);
+    emitter.emit('templateSelection', selectedTemplate);
   });
 
   const saveButton = button({

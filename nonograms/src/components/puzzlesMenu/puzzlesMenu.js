@@ -66,7 +66,7 @@ function createPuzzleMenu(templates, emitter) {
       const selectedTemplate = templates.find(
         (template) => template.size === selectedSize
       );
-      emitter.emit('templateSelected', selectedTemplate);
+      emitter.emit('templateSelection', selectedTemplate);
     }
   });
 
@@ -78,7 +78,7 @@ function createPuzzleMenu(templates, emitter) {
         (template) => template.name === selectedTemplateName
       );
 
-      emitter.emit('templateSelected', selectedTemplate);
+      emitter.emit('templateSelection', selectedTemplate);
     }
   });
 
@@ -101,7 +101,7 @@ function createPuzzleMenu(templates, emitter) {
       availableTemplates[Math.floor(Math.random() * availableTemplates.length)];
     templateSelectElement.value = randomTemplate.name;
 
-    emitter.emit('templateSelected', randomTemplate);
+    emitter.emit('templateSelection', randomTemplate);
   }
 
   const randomGameButton = button({
