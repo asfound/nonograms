@@ -42,6 +42,8 @@ export const main = createElementFactory('main');
 
 export const option = createElementFactory('option');
 
+export const p = createElementFactory('p');
+
 export const table = createElementFactory('table');
 export const thead = createElementFactory('thead');
 export const tbody = createElementFactory('tbody');

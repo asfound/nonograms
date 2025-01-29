@@ -1,0 +1,8 @@
+.modal {
+  border: var(--border-thick);
+  text-align: center;
+}
+
+.content {
+  padding: 0.425rem;
+}

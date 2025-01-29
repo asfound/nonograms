@@ -1,6 +1,7 @@
 import { checkCell, isPuzzleSolved } from '@/components/game/gameLogic';
 import createGameState from '@/components/game/gameState';
 import templates from '@/components/game/templates';
+import createModal from '@/components/modal/modal';
 import { calcCells } from '@/components/puzzleBoard/boardUtils';
 import createPuzzleBoard from '@/components/puzzleBoard/puzzleBoard';
 import createPuzzleMenu from '@/components/puzzlesMenu/puzzlesMenu';
@@ -52,6 +53,7 @@ function generatePlayerMatrix(size) {
 function initApp() {
   const emitter = createEventEmitter();
   const gameState = createGameState();
+  createModal(emitter);
 
   const puzzleMenu = createPuzzleMenu(templates, emitter);
   document.body.appendChild(puzzleMenu);
@@ -67,6 +69,7 @@ function initApp() {
     currentTemplateMatrix: initialPuzzle.matrix,
     correctCellsCount: calcCells(initialPuzzle.matrix),
     playerMatrix: generatePlayerMatrix(initialPuzzle.size),
+    playerCorrectCellsCount: 0,
   });
 
   /**
@@ -79,7 +82,7 @@ function initApp() {
     checkCell({ rowIndex, colIndex, cellState }, gameState);
 
     if (isPuzzleSolved(gameState)) {
-      console.log('You won!');
+      emitter.emit('gameOver', 'You won!');
 
       gameContainer.style.pointerEvents = 'none';
       emitter.off('cellClick', cellClickHandler);
@@ -92,11 +95,12 @@ function initApp() {
       selectedTemplate
     ) => {
       emitter.off('cellClick', cellClickHandler);
-      
-      renderTemplate(selectedTemplate, gameContainer, emitter);
-      gameState.updateState({ currentTemplateMatrix: selectedTemplate.matrix });
 
+      renderTemplate(selectedTemplate, gameContainer, emitter);
+
+      // TODO: use start game
       gameState.updateState({
+        currentTemplateMatrix: selectedTemplate.matrix,
         correctCellsCount: calcCells(selectedTemplate.matrix),
         playerMatrix: generatePlayerMatrix(selectedTemplate.size),
         playerCorrectCellsCount: 0,
