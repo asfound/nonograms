@@ -52,6 +52,17 @@ function createPuzzleBoard(matrix, icon, emitter) {
     topRowElement.appendChild(tdElement);
   });
 
+  /**
+   * @param {HTMLTableCellElement} cellElement
+   * @param {number} rowIndex
+   * @param {number} colIndex
+   */
+  function revealCell(cellElement, rowIndex, colIndex) {
+    const cellValue = matrix[rowIndex][colIndex];
+    const cellAttributeValue = cellValue === 1 ? 1 : -1;
+    cellElement.setAttribute('data-state', String(cellAttributeValue));
+  }
+
   const rows = matrix.map((row, rowIndex) => {
     const rowElement = tr({});
     const hintElement = td({
@@ -62,6 +73,10 @@ function createPuzzleBoard(matrix, icon, emitter) {
     const cells = row.map((_, colIndex) => {
       const cellElement = td({ className: styles.cell });
       cellElement.setAttribute('data-state', '0');
+
+      emitter.on('solutionReveal', () =>
+        revealCell(cellElement, rowIndex, colIndex)
+      );
 
       cellElement.addEventListener('click', (event) => {
         if (event.button === 0) {

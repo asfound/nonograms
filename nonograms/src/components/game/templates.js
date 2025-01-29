@@ -1,3 +1,13 @@
+/**
+ * @typedef {Object} Template
+ * @property {string} name
+ * @property {string} icon
+ * @property {number} size
+ * @property {number[][]} matrix 
+ */
+
+/** @type {Template[]} */
+
 const templates = [
   {
     name: 'bomb',

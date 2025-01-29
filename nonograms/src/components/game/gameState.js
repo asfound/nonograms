@@ -1,5 +1,6 @@
 /**
  * @typedef {Object} State
+ * @property {string} currentTemplateName
  * @property {number[][]} currentTemplateMatrix
  * @property {number[][]} playerMatrix
  * @property {number} correctCellsCount
@@ -19,6 +20,7 @@
 function createGameState() {
   /** @type {State} */
   let state = {
+    currentTemplateName: '',
     currentTemplateMatrix: [],
     playerMatrix: [],
     correctCellsCount: 0,

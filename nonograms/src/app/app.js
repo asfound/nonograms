@@ -1,6 +1,7 @@
 import { checkCell, isPuzzleSolved } from '@/components/game/gameLogic';
 import createGameState from '@/components/game/gameState';
 import templates from '@/components/game/templates';
+import createGameControls from '@/components/gameControls/gameControls';
 import createModal from '@/components/modal/modal';
 import { calcCells } from '@/components/puzzleBoard/boardUtils';
 import createPuzzleBoard from '@/components/puzzleBoard/puzzleBoard';
@@ -56,8 +57,6 @@ function initApp() {
   const gameState = createGameState();
   createModal(emitter);
 
-
-
   const puzzleMenu = createPuzzleMenu(templates, emitter);
   document.body.appendChild(puzzleMenu);
 
@@ -71,6 +70,7 @@ function initApp() {
   renderTemplate(initialPuzzle, gameContainer, emitter);
 
   gameState.updateState({
+    currentTemplateName: initialPuzzle.name,
     currentTemplateMatrix: initialPuzzle.matrix,
     correctCellsCount: calcCells(initialPuzzle.matrix),
     playerMatrix: generatePlayerMatrix(initialPuzzle.size),
@@ -90,35 +90,41 @@ function initApp() {
       timer.stopTimer();
       const { elapsedTime } = gameState.getState();
       emitter.emit('gameOver', `You won in ${elapsedTime} seconds!`);
+      emitter.emit('solutionReveal');
 
       gameContainer.style.pointerEvents = 'none';
       emitter.off('cellClick', cellClickHandler);
     }
   };
 
-  emitter.on(
-    'templateSelected',
-    /** @param {{ name: string, icon: string, size: number, matrix: number[][] }} selectedTemplate */ (
-      selectedTemplate
-    ) => {
-      emitter.off('cellClick', cellClickHandler);
+  /**
+   * @param {{ name: string, icon: string, size: number, matrix: number[][] }} selectedTemplate
+   */
+  const templateSelectHandler = (selectedTemplate) => {
+    emitter.off('cellClick', cellClickHandler);
 
-      renderTemplate(selectedTemplate, gameContainer, emitter);
-      timer.resetTimer();
+    renderTemplate(selectedTemplate, gameContainer, emitter);
+    timer.resetTimer();
 
-      // TODO: use setup game
-      gameState.updateState({
-        currentTemplateMatrix: selectedTemplate.matrix,
-        correctCellsCount: calcCells(selectedTemplate.matrix),
-        playerMatrix: generatePlayerMatrix(selectedTemplate.size),
-        playerCorrectCellsCount: 0,
-      });
+    // TODO: use setup game
+    gameState.updateState({
+      currentTemplateName: selectedTemplate.name,
+      currentTemplateMatrix: selectedTemplate.matrix,
+      correctCellsCount: calcCells(selectedTemplate.matrix),
+      playerMatrix: generatePlayerMatrix(selectedTemplate.size),
+      playerCorrectCellsCount: 0,
+    });
 
-      emitter.on('cellClick', cellClickHandler);
-    }
-  );
+    emitter.on('cellClick', cellClickHandler);
+  };
+
+  // TODO: templateChangeHandler
+  emitter.on('templateSelected', templateSelectHandler);
 
   emitter.on('cellClick', cellClickHandler);
+
+  const gameControls = createGameControls(gameState, templates, emitter);
+  document.body.appendChild(gameControls);
 }
 
 export default initApp;
