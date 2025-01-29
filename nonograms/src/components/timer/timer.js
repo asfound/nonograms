@@ -55,6 +55,7 @@ function createTimer(gameState, emitter, parentElement) {
   }
 
   emitter.on('gameOver', stopTimer);
+  emitter.on('solutionReveal', stopTimer);
   emitter.on('gameStarted', startTimer);
 
   return { resetTimer, stopTimer };

@@ -28,6 +28,7 @@ td {
   width: 100%;
   width: var(--cell-size);
   height: var(--cell-size);
+  transition: background-color 0.1s;
 }
 
 .cell[data-state='1'] {
@@ -38,8 +39,8 @@ td {
   position: relative;
 }
 
-.cell[data-state='-1']:before,
-.cell[data-state='-1']:after {
+.cell[data-state='-1']::before,
+.cell[data-state='-1']::after {
   content: '';
 
   position: absolute;
@@ -51,10 +52,10 @@ td {
   background-color: var(--main);
 }
 
-.cell[data-state='-1']:before {
+.cell[data-state='-1']::before {
   transform: translate(-50%, -50%) rotate(-45deg);
 }
-.cell[data-state='-1']:after {
+.cell[data-state='-1']::after {
   transform: translate(-50%, -50%) rotate(45deg);
 }
 
