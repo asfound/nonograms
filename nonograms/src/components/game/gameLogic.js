@@ -20,9 +20,13 @@ export function checkCell({ rowIndex, colIndex, cellState }, gameState) {
   const isCorrectBlackRemoved =
     previousCellState === 1 && playerCellState !== 1 && correctCellState === 1;
 
-  if (isCorrectBlackAdded) {
+  const isIncorrectBlackAdded = playerCellState === 1 && correctCellState === 0;
+  const isIncorrectBlackRemoved =
+    previousCellState === 1 && playerCellState !== 1 && correctCellState === 0;
+
+  if (isCorrectBlackAdded || isIncorrectBlackRemoved) {
     currentCorrectCellsCount += 1;
-  } else if (isCorrectBlackRemoved) {
+  } else if (isCorrectBlackRemoved || isIncorrectBlackAdded) {
     currentCorrectCellsCount -= 1;
   }
 
@@ -30,9 +34,9 @@ export function checkCell({ rowIndex, colIndex, cellState }, gameState) {
   updatedPlayerMatrix[rowIndex][colIndex] = playerCellState;
 
   gameState.updateState({
-    playerMatrix: updatedPlayerMatrix, playerCorrectCellsCount: currentCorrectCellsCount,
+    playerMatrix: updatedPlayerMatrix,
+    playerCorrectCellsCount: currentCorrectCellsCount,
   });
-
 }
 
 /**
