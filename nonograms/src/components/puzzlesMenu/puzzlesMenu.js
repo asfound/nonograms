@@ -1,4 +1,4 @@
-import { div, label, option, select } from '@/utils/createElement';
+import { div, button, label, option, select } from '@/utils/createElement';
 
 import styles from './puzzlesMenu.module.css';
 
@@ -13,7 +13,6 @@ const INITIAL_SIZE = 5;
 /**
  * @param {Array<{ name: string, icon: string, size: number, matrix: number[][] }>} templates
  * @param {import('@/utils/eventEmitter').EventEmitter} emitter
- * @returns  {HTMLElement} levelsContainer
  */
 function createPuzzleMenu(templates, emitter) {
   const levelsContainer = div({ className: styles.levels });
@@ -83,7 +82,36 @@ function createPuzzleMenu(templates, emitter) {
     }
   });
 
+  function selectRandomTemplate() {
+    const currentTemplateName = templateSelectElement.value;
+    const randomSize = SIZES[Math.floor(Math.random() * SIZES.length)].value;
+
+    sizeSelectElement.value = String(randomSize);
+
+    updateTemplateNames(randomSize);
+
+    const filteredTemplates = templates.filter(
+      (template) => template.size === randomSize
+    );
+    const availableTemplates = filteredTemplates.filter(
+      (template) => template.name !== currentTemplateName
+    );
+
+    const randomTemplate =
+      availableTemplates[Math.floor(Math.random() * availableTemplates.length)];
+    templateSelectElement.value = randomTemplate.name;
+
+    emitter.emit('templateSelected', randomTemplate);
+  }
+
+  const randomGameButton = button({
+    className: 'button',
+    textContent: 'Random Game',
+    onclick: selectRandomTemplate,
+  });
+
   levelsContainer.appendChild(templateSelectElement);
+  levelsContainer.appendChild(randomGameButton);
 
   return levelsContainer;
 }
