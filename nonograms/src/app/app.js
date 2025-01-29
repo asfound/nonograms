@@ -5,6 +5,7 @@ import createModal from '@/components/modal/modal';
 import { calcCells } from '@/components/puzzleBoard/boardUtils';
 import createPuzzleBoard from '@/components/puzzleBoard/puzzleBoard';
 import createPuzzleMenu from '@/components/puzzlesMenu/puzzlesMenu';
+import createTimer from '@/components/timer/timer';
 import { div } from '@/utils/createElement';
 import createEventEmitter from '@/utils/eventEmitter';
 
@@ -31,7 +32,7 @@ function renderTemplate(template, gameContainer, emitter) {
 //  * @param {import('@/components/game/gameState').GameState} gameState
 //  * @param {import('@/utils/eventEmitter').EventEmitter} emitter
 //  * */
-// function startGame(template, gameState, emitter) {
+// function setUpGame(template, gameState, emitter) {
 //   gameState.updateState({ isGameOver: false });
 //   gameState.updateState({ currentTemplateMatrix: template.matrix });
 //   gameState.updateState({
@@ -55,8 +56,12 @@ function initApp() {
   const gameState = createGameState();
   createModal(emitter);
 
+
+
   const puzzleMenu = createPuzzleMenu(templates, emitter);
   document.body.appendChild(puzzleMenu);
+
+  const timer = createTimer(gameState, emitter, document.body);
 
   const gameContainer = div({ className: 'container' });
   document.body.appendChild(gameContainer);
@@ -82,7 +87,9 @@ function initApp() {
     checkCell({ rowIndex, colIndex, cellState }, gameState);
 
     if (isPuzzleSolved(gameState)) {
-      emitter.emit('gameOver', 'You won!');
+      timer.stopTimer();
+      const { elapsedTime } = gameState.getState();
+      emitter.emit('gameOver', `You won in ${elapsedTime} seconds!`);
 
       gameContainer.style.pointerEvents = 'none';
       emitter.off('cellClick', cellClickHandler);
@@ -97,8 +104,9 @@ function initApp() {
       emitter.off('cellClick', cellClickHandler);
 
       renderTemplate(selectedTemplate, gameContainer, emitter);
+      timer.resetTimer();
 
-      // TODO: use start game
+      // TODO: use setup game
       gameState.updateState({
         currentTemplateMatrix: selectedTemplate.matrix,
         correctCellsCount: calcCells(selectedTemplate.matrix),

@@ -12,7 +12,6 @@ import styles from './puzzleBoard.module.css';
  * @param {import('@/utils/eventEmitter').EventEmitter} emitter
  */
 function createPuzzleBoard(matrix, icon, emitter) {
-
   const tableElement = table({});
 
   const tableHeadElement = thead({});
@@ -31,6 +30,18 @@ function createPuzzleBoard(matrix, icon, emitter) {
 
   const tableBody = tbody({});
   tableBody.appendChild(topRowElement);
+
+  tableBody.addEventListener(
+    'click',
+    (event) => {
+      if (event.target instanceof HTMLTableCellElement) {
+        if (event.target.hasAttribute('data-state')) {
+          emitter.emit('gameStarted');
+        }
+      }
+    },
+    { once: true }
+  );
 
   topHints.forEach((hint) => {
     const tdElement = td({
@@ -89,7 +100,6 @@ function createPuzzleBoard(matrix, icon, emitter) {
 
   tableBody.append(...rows);
   tableElement.append(tableHeadElement, tableBody);
-
 
   return tableElement;
 }

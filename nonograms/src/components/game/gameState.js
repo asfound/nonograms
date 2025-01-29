@@ -5,6 +5,7 @@
  * @property {number} correctCellsCount
  * @property {number} playerCorrectCellsCount
  * @property {boolean} isGameOver
+ * @property {number} elapsedTime
  */
 
 /**
@@ -23,6 +24,7 @@ function createGameState() {
     correctCellsCount: 0,
     playerCorrectCellsCount: 0,
     isGameOver: true,
+    elapsedTime: 0,
   };
 
   return {

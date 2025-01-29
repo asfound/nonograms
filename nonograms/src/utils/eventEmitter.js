@@ -7,6 +7,7 @@
  * @property {function} on
  * @property {function} off
  * @property {function} emit
+ * @property {function} once
  */
 
 /**
@@ -51,6 +52,22 @@ function createEventEmitter() {
           listener(...args);
         });
       }
+    },
+
+    /**
+     * @param {string} event
+     * @param {function} listener
+     *
+     * @returns {function}
+     */
+    once(event, listener) {
+      /** @param {...*} args */
+      const onceListener = (...args) => {
+        listener(...args);
+        this.off(event, onceListener);
+      };
+      this.on(event, onceListener);
+      return onceListener;
     },
   };
 }
