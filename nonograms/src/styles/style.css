@@ -1,5 +1,6 @@
 :root {
   --main: black;
+  --main-dimmed: rgb(35, 35, 35);
   --secondary: white;
   --border-thick: 2px solid var(--main);
   --border-thin: 1px solid var(--main);
