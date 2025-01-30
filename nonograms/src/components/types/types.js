@@ -51,3 +51,12 @@
  * @property {function} emit
  * @property {function} once
  */
+
+// utils
+/**
+ * @typedef {Object} GameResult
+ * @property {string} templateName
+ * @property {number} size
+ * @property {number} seconds
+ *
+ */

@@ -1,9 +1,9 @@
-import renderTemplate from '@/components/game/gameUtils';
+import renderTemplate from '@/components/game/gameRender';
+import { saveScore } from '@/components/game/gameUtils';
 import {
   calcCells,
   generatePlayerMatrix,
 } from '@/components/puzzleBoard/boardUtils';
-
 /**
  * @param {GameState} gameState
  */
@@ -68,13 +68,15 @@ export function handleCellClick(
 
   if (isPuzzleSolved(gameState)) {
     timer.stopTimer();
-    const { elapsedTime } = gameState.getState();
+    const { elapsedTime, currentTemplateName} = gameState.getState();
     emitter.emit('gameOver', `You won in ${elapsedTime} seconds!`);
     emitter.emit('solutionReveal');
 
+
+    saveScore(currentTemplateName, elapsedTime)
+
     const gameContainerElement = gameContainer;
     gameContainerElement.style.pointerEvents = 'none';
-
   }
 }
 

@@ -1,16 +1,5 @@
+import { calculateMinutes } from '@/components/game/gameUtils';
 import { div } from '@/utils/createElement';
-
-/**
- *
- * @param {number} timeInSeconds
- * @returns {string}
- */
-function calculateMinutes(timeInSeconds) {
-  const minutes = Math.floor(timeInSeconds / 60);
-  const seconds = timeInSeconds % 60;
-  return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-}
-
 /**
  * @param {GameState} gameState
  * @param {EventEmitter} emitter

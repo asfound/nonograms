@@ -33,6 +33,14 @@ function createGameControls(gameState, templates, emitter, gameContainer) {
     textContent: 'Solution',
   });
 
+  emitter.on('solutionReveal', () => {
+    solutionButton.disabled = true;
+  });
+
+  emitter.on('templateSelection', () => {
+    solutionButton.disabled = false;
+  });
+
   resetButton.addEventListener('click', () => {
     const { currentTemplateName } = gameState.getState();
     const selectedTemplate = templates.find(
@@ -40,7 +48,6 @@ function createGameControls(gameState, templates, emitter, gameContainer) {
     );
     emitter.emit('templateSelection', selectedTemplate);
 
-    solutionButton.disabled = false;
     resetButton.disabled = true;
   });
 
