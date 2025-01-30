@@ -23,15 +23,6 @@ function createGameControls(gameState, templates, emitter, gameContainer) {
     resetButton.disabled = false;
   });
 
-  resetButton.addEventListener('click', () => {
-    const { currentTemplateName } = gameState.getState();
-    const selectedTemplate = templates.find(
-      (template) => template.name === currentTemplateName
-    );
-    emitter.emit('templateSelection', selectedTemplate);
-    resetButton.disabled = true;
-  });
-
   const saveButton = button({
     className: 'button save-button',
     textContent: 'Save Game',
@@ -42,10 +33,24 @@ function createGameControls(gameState, templates, emitter, gameContainer) {
     textContent: 'Solution',
   });
 
+  resetButton.addEventListener('click', () => {
+    const { currentTemplateName } = gameState.getState();
+    const selectedTemplate = templates.find(
+      (template) => template.name === currentTemplateName
+    );
+    emitter.emit('templateSelection', selectedTemplate);
+
+    solutionButton.disabled = false;
+    resetButton.disabled = true;
+  });
+
   solutionButton.addEventListener('click', () => {
     emitter.emit('solutionReveal');
     const gameContainerElement = gameContainer;
     gameContainerElement.style.pointerEvents = 'none';
+
+    solutionButton.disabled = true;
+    resetButton.disabled = false;
   });
 
   const continueButton = button({
