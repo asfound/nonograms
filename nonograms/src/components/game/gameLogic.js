@@ -74,7 +74,7 @@ export function handleCellClick(
 
     const gameContainerElement = gameContainer;
     gameContainerElement.style.pointerEvents = 'none';
-    emitter.emit('removeHandler');
+
   }
 }
 

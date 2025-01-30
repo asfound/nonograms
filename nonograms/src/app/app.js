@@ -53,7 +53,7 @@ function initApp() {
     }
   );
 
-  const gameControls = createGameControls(gameState, templates, emitter);
+  const gameControls = createGameControls(gameState, templates, emitter, gameContainer);
   document.body.appendChild(gameControls);
 }
 

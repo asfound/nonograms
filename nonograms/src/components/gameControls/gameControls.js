@@ -6,9 +6,10 @@ import styles from './gameControls.module.css';
  * @param {GameState} gameState
  * @param {Template[]} templates
  * @param {EventEmitter} emitter
+ * @param {HTMLElement} gameContainer
  * @returns {HTMLElement}
  */
-function createGameControls(gameState, templates, emitter) {
+function createGameControls(gameState, templates, emitter, gameContainer) {
   const controlsContainer = div({ className: styles.controls });
 
   const resetButton = button({
@@ -36,6 +37,8 @@ function createGameControls(gameState, templates, emitter) {
 
   solutionButton.addEventListener('click', () => {
     emitter.emit('solutionReveal');
+    const gameContainerElement = gameContainer;
+    gameContainerElement.style.pointerEvents = 'none';
   });
 
   const continueButton = button({
