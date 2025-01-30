@@ -66,10 +66,12 @@ td:first-child {
 
   line-height: 0;
   text-align: right;
+  text-wrap: nowrap;
   word-spacing: var(--cell-size);
 }
 
 tr:first-child td {
+  min-width: var(--cell-size);
   height: fit-content;
   padding-bottom: 0.225rem;
 
