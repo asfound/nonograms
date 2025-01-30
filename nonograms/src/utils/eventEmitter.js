@@ -1,16 +1,4 @@
 /**
- * @typedef {function} Listener
- */
-
-/**
- * @typedef {Object} EventEmitter
- * @property {function} on
- * @property {function} off
- * @property {function} emit
- * @property {function} once
- */
-
-/**
  * @returns {EventEmitter}
  */
 

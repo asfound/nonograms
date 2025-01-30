@@ -3,9 +3,9 @@ import { button, div } from '@/utils/createElement';
 import styles from './gameControls.module.css';
 
 /**
- * @param {import('@/components/game/gameState').GameState} gameState
- * @param {import('@/components/game/templates').Template[]} templates
- * @param {import('@/utils/eventEmitter').EventEmitter} emitter
+ * @param {GameState} gameState
+ * @param {Template[]} templates
+ * @param {EventEmitter} emitter
  * @returns {HTMLElement}
  */
 function createGameControls(gameState, templates, emitter) {

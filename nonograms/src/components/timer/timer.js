@@ -12,9 +12,10 @@ function calculateMinutes(timeInSeconds) {
 }
 
 /**
- * @param {import('@/components/game/gameState').GameState} gameState
- * @param {import('@/utils/eventEmitter').EventEmitter} emitter
+ * @param {GameState} gameState
+ * @param {EventEmitter} emitter
  * @param {HTMLElement} parentElement
+ * @returns {TimerControls}
  */
 function createTimer(gameState, emitter, parentElement) {
   let seconds = 0;

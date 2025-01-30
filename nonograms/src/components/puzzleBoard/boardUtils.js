@@ -65,3 +65,13 @@ export function calculateSideHints(matrix) {
 export function calcCells(matrix) {
   return matrix.flat().filter((cell) => cell === 1).length;
 }
+
+/**
+ * @param {number} size
+ * @returns {number[][]}
+ */
+export function generatePlayerMatrix(size) {
+  return Array.from({ length: size }, () =>
+    Array.from({ length: size }, () => 0)
+  );
+}

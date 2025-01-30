@@ -12,7 +12,7 @@ const INITIAL_SIZE = 5;
 
 /**
  * @param {Array<{ name: string, icon: string, size: number, matrix: number[][] }>} templates
- * @param {import('@/utils/eventEmitter').EventEmitter} emitter
+ * @param {EventEmitter} emitter
  */
 function createPuzzleMenu(templates, emitter) {
   const levelsContainer = div({ className: styles.levels });

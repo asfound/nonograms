@@ -9,7 +9,7 @@ import styles from './puzzleBoard.module.css';
 /**
  * @param {number[][]} matrix
  * @param {string} icon
- * @param {import('@/utils/eventEmitter').EventEmitter} emitter
+ * @param {EventEmitter} emitter
  */
 function createPuzzleBoard(matrix, icon, emitter) {
   const tableElement = table({});

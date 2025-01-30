@@ -1,9 +1,20 @@
+import renderTemplate from '@/components/game/gameUtils';
+import {
+  calcCells,
+  generatePlayerMatrix,
+} from '@/components/puzzleBoard/boardUtils';
+
 /**
- * @param {Object} params
- * @param {number} params.rowIndex
- * @param {number} params.colIndex
- * @param {number} params.cellState
- * @param {import("@/components/game/gameState").GameState} gameState
+ * @param {GameState} gameState
+ */
+export function isPuzzleSolved(gameState) {
+  const { correctCellsCount, playerCorrectCellsCount } = gameState.getState();
+  return correctCellsCount === playerCorrectCellsCount;
+}
+
+/**
+ * @param {CellParams} params
+ * @param {GameState} gameState
  */
 export function checkCell({ rowIndex, colIndex, cellState }, gameState) {
   const { currentTemplateMatrix, playerMatrix, playerCorrectCellsCount } =
@@ -40,9 +51,61 @@ export function checkCell({ rowIndex, colIndex, cellState }, gameState) {
 }
 
 /**
- * @param {import("@/components/game/gameState").GameState} gameState
+ * @param {CellParams} params
+ * @param {GameState} gameState
+ * @param {EventEmitter} emitter
+ * @param {TimerControls} timer
+ * @param {HTMLElement} gameContainer
  */
-export function isPuzzleSolved(gameState) {
-  const { correctCellsCount, playerCorrectCellsCount } = gameState.getState();
-  return correctCellsCount === playerCorrectCellsCount;
+export function handleCellClick(
+  { rowIndex, colIndex, cellState },
+  gameState,
+  emitter,
+  timer,
+  gameContainer
+) {
+  checkCell({ rowIndex, colIndex, cellState }, gameState);
+
+  if (isPuzzleSolved(gameState)) {
+    timer.stopTimer();
+    const { elapsedTime } = gameState.getState();
+    emitter.emit('gameOver', `You won in ${elapsedTime} seconds!`);
+    emitter.emit('solutionReveal');
+
+    const gameContainerElement = gameContainer;
+    gameContainerElement.style.pointerEvents = 'none';
+    emitter.emit('removeHandler');
+  }
+}
+
+/**
+ * @param {Template} template
+ * @param {GameState} gameState
+ * @param {EventEmitter} emitter
+ * @param {TimerControls} timer
+ * @param {HTMLElement} gameContainer
+ * @param {function} cellClickHandler
+ * */
+export function setUpGame(
+  template,
+  gameState,
+  emitter,
+  timer,
+  gameContainer,
+  cellClickHandler
+) {
+  emitter.off('cellClick', cellClickHandler);
+
+  renderTemplate(template, gameContainer, emitter);
+  timer.resetTimer();
+
+  gameState.updateState({
+    currentTemplateName: template.name,
+    currentTemplateMatrix: template.matrix,
+    correctCellsCount: calcCells(template.matrix),
+    playerMatrix: generatePlayerMatrix(template.size),
+    playerCorrectCellsCount: 0,
+  });
+
+  emitter.on('cellClick', cellClickHandler);
 }
