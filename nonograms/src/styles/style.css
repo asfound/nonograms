@@ -35,3 +35,8 @@
 .button:active {
   scale: 0.95;
 }
+
+.button:disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}

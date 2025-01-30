@@ -17,12 +17,19 @@ function createGameControls(gameState, templates, emitter, gameContainer) {
     textContent: 'Reset Game',
   });
 
+  resetButton.disabled = true;
+
+  emitter.on('gameStarted', () => {
+    resetButton.disabled = false;
+  });
+
   resetButton.addEventListener('click', () => {
     const { currentTemplateName } = gameState.getState();
     const selectedTemplate = templates.find(
       (template) => template.name === currentTemplateName
     );
     emitter.emit('templateSelection', selectedTemplate);
+    resetButton.disabled = true;
   });
 
   const saveButton = button({
