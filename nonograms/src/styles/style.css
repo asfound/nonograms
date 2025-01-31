@@ -5,8 +5,35 @@
   --border-thick: 2px solid var(--main);
   --border-thin: 1px solid var(--main);
   --cell-size: 0.525rem;
+  --cell-color: var(--main);
+  --cross-color: var(--main);
+  --board-color: var(--secondary);
+  --icon-color: var(--secondary);
+  --icon-background: var(--main);
+  --glow-color: transparent;
 
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+.dark {
+  --main: white;
+  --main-dimmed: rgb(220, 220, 220);
+  --secondary: black;
+  --border-thick: 2px solid var(--main);
+  --border-thin: 1px solid var(--main);
+  --board-color: var(--secondary);
+  --cell-color: var(--main);
+  --cross-color: rgb(170, 170, 170);
+  --glow-color: var(--main);
+}
+
+html {
+  font-size: clamp(16px, 1.2vw, 50px);
+}
+
+body {
+  font-size: inherit;
+  background-color: var(--secondary);
 }
 
 .button {
@@ -49,15 +76,25 @@
   align-items: center;
   justify-content: center;
 
-  margin: 0.425rem 0;
+  margin: 0.75rem 0;
 }
 
 .settings .button {
   color: var(--secondary);
+  text-shadow:
+    0 0 5px white,
+    0 0 10px white;
   background-color: var(--main);
 }
 
 .settings .button:hover {
   color: var(--main);
+  text-shadow:
+    0 0 5px white,
+    0 0 10px white,
+    0 0 20px var(--glow-color),
+    0 0 40px var(--glow-color),
+    0 0 50px var(--glow-color),
+    0 0 75px var(--glow-color);
   background-color: var(--secondary);
 }

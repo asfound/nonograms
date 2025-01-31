@@ -26,6 +26,7 @@ function createPuzzleBoard(matrix, icon, emitter) {
 
   const topRowElement = tr({className: styles.row});
   const cornerElement = td({ innerText: icon, className: styles.cell });
+  cornerElement.classList.add(styles.icon)
   topRowElement.appendChild(cornerElement);
 
   const tableBody = tbody({className: styles.field});

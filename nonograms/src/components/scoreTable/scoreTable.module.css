@@ -5,6 +5,7 @@
 
   font-size: 0.8rem;
   line-height: 1.5rem;
+  color: var(--main);
   text-align: center;
   text-transform: capitalize;
 
@@ -56,11 +57,11 @@
   padding-left: 0.1rem;
 
   font-size: calc(var(--cell-size) * 2.5);
-  color: var(--secondary);
+  color: var(--icon-color);
   text-align: center;
   vertical-align: middle;
 
-  background-color: var(--main);
+  background-color: var(--icon-background);
 }
 
 .row:last-child {

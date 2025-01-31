@@ -1,6 +1,17 @@
 .modal {
   border: var(--border-thick);
+
+  color: var(--main);
   text-align: center;
+
+  background-color: var(--secondary);
+  box-shadow:
+    0 0 5px var(--glow-color),
+    0 0 10px var(--glow-color),
+    0 0 20px var(--glow-color),
+    0 0 40px var(--glow-color),
+    0 0 50px var(--glow-color),
+    0 0 75px var(--glow-color);
 }
 
 .content {

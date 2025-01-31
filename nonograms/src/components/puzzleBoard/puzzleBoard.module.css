@@ -27,12 +27,19 @@
   padding: calc(var(--cell-size) / 1.2);
   border: var(--border-thin);
 
+  background-color: var(--board-color);
+
   transition: background-color 0.1s;
 }
 
 .cell[data-state='1'] {
   border-color: var(--main-dimmed);
-  background-color: var(--main);
+  background-color: var(--cell-color);
+  box-shadow:
+    0 0 5px var(--glow-color),
+    0 0 10px var(--glow-color),
+    0 0 20px var(--glow-color),
+    0 0 40px var(--glow-color);
 }
 
 .cell[data-state='-1'] {
@@ -49,7 +56,7 @@
   width: 140%;
   height: 1px;
 
-  background-color: var(--main);
+  background-color: var(--cross-color);
 }
 
 .cell[data-state='-1']::before {
@@ -69,7 +76,7 @@
   word-spacing: var(--cell-size);
 }
 
-.row:first-child td {
+.row:first-child .hint {
   min-width: var(--cell-size);
   height: fit-content;
   padding-bottom: 0.225rem;
@@ -91,18 +98,26 @@
   border-bottom: var(--border-thick);
 }
 
-.row:first-child .cell:first-child {
-  padding: 0;
-  padding-left: 0.1rem;
-
-  font-size: calc(var(--cell-size) * 2.5);
-  color: var(--secondary);
-  text-align: center;
-  vertical-align: middle;
-
-  background-color: var(--main);
-}
-
 .hint {
   font-weight: 500;
+  color: var(--main);
+  background-color: var(--secondary);
+}
+
+.icon {
+  padding: 1rem 1rem 0.5rem 1rem;
+
+  font-size: calc(var(--cell-size) * 2.5);
+  color: var(--icon-color);
+  text-align: center;
+  text-shadow:
+    0 0 5px white,
+    0 0 10px white,
+    0 0 20px var(--glow-color),
+    0 0 40px var(--glow-color),
+    0 0 50px var(--glow-color),
+    0 0 75px var(--glow-color);
+  vertical-align: middle;
+
+  background-color: var(--icon-background);
 }

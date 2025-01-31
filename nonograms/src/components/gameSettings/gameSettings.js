@@ -8,7 +8,7 @@ import styles from './gameSettings.module.css';
  * @returns {HTMLElement}
  */
 function createGameSettings(gameState, emitter) {
-  const settingsContainer = div({ className: 'settings panel' });
+  const settingsContainer = div({ className: 'panel settings' });
 
   const resultsButton = button({
     className: 'button',
@@ -29,7 +29,6 @@ function createGameSettings(gameState, emitter) {
     const buttonToUpdate = buttonElement;
     buttonToUpdate.textContent = content;
 
-    // TODO: move to theme toggler function
     gameState.updateState({ mode: newModeValue });
   };
 
@@ -41,6 +40,7 @@ function createGameSettings(gameState, emitter) {
   setThemeButtonContent(themeButton);
   themeButton.addEventListener('click', () => {
     setThemeButtonContent(themeButton);
+    document.body.classList.toggle('dark');
     emitter.emit('toggleTheme');
   });
 
@@ -52,7 +52,6 @@ function createGameSettings(gameState, emitter) {
     const buttonToUpdate = buttonElement;
     buttonToUpdate.textContent = content;
 
-    // TODO: move to sound toggler function
     gameState.updateState({ sound: !sound });
   };
 
