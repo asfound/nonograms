@@ -1,5 +1,8 @@
 import { calculateMinutes } from '@/components/game/gameUtils';
 import { div } from '@/utils/createElement';
+
+import styles from './timer.module.css';
+
 /**
  * @param {GameState} gameState
  * @param {EventEmitter} emitter
@@ -12,7 +15,7 @@ function createTimer(gameState, emitter, parentElement) {
   let interval = null;
 
   const timerElement = div({
-    className: 'timer',
+    className: styles.timer,
     textContent: '00:00',
   });
   parentElement.appendChild(timerElement);
