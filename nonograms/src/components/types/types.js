@@ -57,7 +57,7 @@
 // utils
 /**
  * @typedef {Object} GameResult
- * @property {string} templateName
+ * @property {string} name
  * @property {number} size
  * @property {number} seconds
  *

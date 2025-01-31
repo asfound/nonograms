@@ -32,6 +32,8 @@ export const dialog = createElementFactory('dialog');
 
 export const div = createElementFactory('div');
 
+export const caption = createElementFactory('caption');
+
 export const h1 = createElementFactory('h1');
 
 export const header = createElementFactory('header');

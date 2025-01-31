@@ -1,3 +1,4 @@
+import createScoreTable from '@/components/scoreTable/scoreTable';
 import { button, div } from '@/utils/createElement';
 
 import styles from './gameSettings.module.css';
@@ -12,6 +13,12 @@ function createGameSettings(gameState, emitter) {
   const resultsButton = button({
     className: 'button',
     textContent: 'Results',
+  });
+
+  resultsButton.addEventListener('click', () => {
+    const scoreTable = createScoreTable();
+
+    emitter.emit('showScore', scoreTable);
   });
 
   /** @param {HTMLButtonElement} buttonElement */
@@ -34,7 +41,7 @@ function createGameSettings(gameState, emitter) {
   setThemeButtonContent(themeButton);
   themeButton.addEventListener('click', () => {
     setThemeButtonContent(themeButton);
-    emitter.emit('toggle theme');
+    emitter.emit('toggleTheme');
   });
 
   /** @param {HTMLButtonElement} buttonElement */
@@ -56,7 +63,7 @@ function createGameSettings(gameState, emitter) {
   setSoundButtonContent(soundButton);
   soundButton.addEventListener('click', () => {
     setSoundButtonContent(soundButton);
-    emitter.emit('toggle sound');
+    emitter.emit('toggleSound');
   });
 
   settingsContainer.appendChild(resultsButton);

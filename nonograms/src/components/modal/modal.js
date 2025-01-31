@@ -1,4 +1,4 @@
-import { button, dialog, p } from '@/utils/createElement';
+import { button, dialog, div } from '@/utils/createElement';
 
 import styles from './modal.module.css';
 
@@ -10,7 +10,7 @@ function createModal(emitter) {
     className: styles.modal,
   });
 
-  const contentElement = p({
+  const contentElement = div({
     className: styles.content,
   });
 
@@ -32,14 +32,27 @@ function createModal(emitter) {
   modalWindow.append(contentElement, closeButton);
   document.body.appendChild(modalWindow);
 
-  /** * @param {string} content */
+  /**
+   * * @param {string | HTMLTableElement} content */
   function showModal(content) {
-    contentElement.textContent = content;
+    if (typeof content === 'string') {
+      contentElement.textContent = content;
+    } else {
+      contentElement.innerHTML = '';
+      contentElement.appendChild(content);
+    }
 
     modalWindow.showModal();
   }
 
   emitter.on('gameOver', showModal);
+
+  emitter.on(
+    'showScore',
+    /** @param {HTMLTableElement} scoreTable */ (scoreTable) => {
+      showModal(scoreTable);
+    }
+  );
 }
 
 export default createModal;

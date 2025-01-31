@@ -14,12 +14,12 @@ export function saveScore(templateName, seconds) {
   const template = templates.find((t) => t.name === templateName);
   const size = template ? template.size : 0;
 
-  results.unshift({ templateName, size, seconds });
+  results.unshift({ name: templateName, size, seconds });
   const updatedResults = results.slice(0, 5);
 
   updatedResults.sort((a, b) => a.seconds - b.seconds);
 
-  localStorage.setItem(LS_SCORE_KEY, JSON.stringify(results));
+  localStorage.setItem(LS_SCORE_KEY, JSON.stringify(updatedResults));
 }
 
 export function getScores() {
