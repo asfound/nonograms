@@ -51,8 +51,8 @@ body {
   background-color: var(--secondary);
 
   transition:
-    background-color 0.3s,
-    color 0.3s;
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 .button:hover {
@@ -97,4 +97,9 @@ body {
     0 0 50px var(--glow-color),
     0 0 75px var(--glow-color);
   background-color: var(--secondary);
+}
+
+.heading {
+  color: var(--main);
+  text-align: center;
 }

@@ -6,13 +6,17 @@ import createGameSettings from '@/components/gameSettings/gameSettings';
 import createModal from '@/components/modal/modal';
 import createPuzzleMenu from '@/components/puzzlesMenu/puzzlesMenu';
 import createTimer from '@/components/timer/timer';
-import { div } from '@/utils/createElement';
+import { div, h1 } from '@/utils/createElement';
 import createEventEmitter from '@/utils/eventEmitter';
 
 function initApp() {
   const emitter = createEventEmitter();
   const gameState = createGameState();
   createModal(emitter);
+
+  const gameName = h1({ className: 'heading' });
+  gameName.textContent = 'Nonograms';;
+  document.body.appendChild(gameName);
 
   const puzzleMenu = createPuzzleMenu(templates, emitter);
   document.body.appendChild(puzzleMenu);
