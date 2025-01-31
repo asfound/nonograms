@@ -3,7 +3,7 @@ import { button, dialog, p } from '@/utils/createElement';
 import styles from './modal.module.css';
 
 /**
- * @param {import('@/utils/eventEmitter').EventEmitter} emitter
+ * @param {EventEmitter} emitter
  */
 function createModal(emitter) {
   const modalWindow = dialog({

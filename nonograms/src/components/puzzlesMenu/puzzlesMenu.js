@@ -16,6 +16,7 @@ const INITIAL_SIZE = 5;
  */
 function createPuzzleMenu(templates, emitter) {
   const levelsContainer = div({ className: styles.levels });
+  levelsContainer.classList.add('panel')
 
   const labelElement = label({
     className: styles.label,

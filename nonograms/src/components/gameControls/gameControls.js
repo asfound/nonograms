@@ -1,7 +1,6 @@
 import { button, div } from '@/utils/createElement';
 
 import styles from './gameControls.module.css';
-
 /**
  * @param {GameState} gameState
  * @param {Template[]} templates
@@ -11,9 +10,10 @@ import styles from './gameControls.module.css';
  */
 function createGameControls(gameState, templates, emitter, gameContainer) {
   const controlsContainer = div({ className: styles.controls });
+  controlsContainer.classList.add('panel');
 
   const resetButton = button({
-    className: 'button reset-button',
+    className: 'button',
     textContent: 'Reset Game',
   });
 
@@ -24,12 +24,12 @@ function createGameControls(gameState, templates, emitter, gameContainer) {
   });
 
   const saveButton = button({
-    className: 'button save-button',
+    className: 'button',
     textContent: 'Save Game',
   });
 
   const solutionButton = button({
-    className: 'button solution-button',
+    className: 'button',
     textContent: 'Solution',
   });
 

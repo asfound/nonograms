@@ -1,10 +1,4 @@
 .levels {
-  display: flex;
-  gap: 0.625rem;
-  align-items: center;
-
-  margin: 0.425rem 0;
-
   font-size: 0.8rem;
 }
 
