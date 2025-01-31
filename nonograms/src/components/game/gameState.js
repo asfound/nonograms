@@ -11,6 +11,8 @@ function createGameState() {
     playerCorrectCellsCount: 0,
     isGameOver: true,
     elapsedTime: 0,
+    mode: 'light',
+    sound: true,
   };
 
   return {

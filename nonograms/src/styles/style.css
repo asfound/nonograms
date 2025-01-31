@@ -18,6 +18,7 @@
 
   font-size: 0.825rem;
   color: var(--main);
+  text-transform: capitalize;
   white-space: nowrap;
 
   background-color: var(--secondary);
@@ -39,4 +40,24 @@
 .button:disabled {
   pointer-events: none;
   opacity: 0.5;
+}
+
+.panel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+  align-items: center;
+  justify-content: center;
+
+  margin: 0.425rem 0;
+}
+
+.settings .button {
+  color: var(--secondary);
+  background-color: var(--main);
+}
+
+.settings .button:hover {
+  color: var(--main);
+  background-color: var(--secondary);
 }

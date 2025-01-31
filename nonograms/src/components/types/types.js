@@ -8,6 +8,8 @@
  * @property {number} playerCorrectCellsCount
  * @property {boolean} isGameOver
  * @property {number} elapsedTime
+ * @property {string} mode
+ * @property {boolean} sound
  */
 
 /**

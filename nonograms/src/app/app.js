@@ -2,6 +2,7 @@ import { setUpGame, handleCellClick } from '@/components/game/gameLogic';
 import createGameState from '@/components/game/gameState';
 import templates from '@/components/game/templates';
 import createGameControls from '@/components/gameControls/gameControls';
+import createGameSettings from '@/components/gameSettings/gameSettings';
 import createModal from '@/components/modal/modal';
 import createPuzzleMenu from '@/components/puzzlesMenu/puzzlesMenu';
 import createTimer from '@/components/timer/timer';
@@ -53,8 +54,16 @@ function initApp() {
     }
   );
 
-  const gameControls = createGameControls(gameState, templates, emitter, gameContainer);
+  const gameControls = createGameControls(
+    gameState,
+    templates,
+    emitter,
+    gameContainer
+  );
   document.body.appendChild(gameControls);
+
+  const gameSettings = createGameSettings(gameState, emitter);
+  document.body.appendChild(gameSettings);
 }
 
 export default initApp;
