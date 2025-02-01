@@ -70,7 +70,7 @@ export function handleCellClick(
     timer.stopTimer();
     const { elapsedTime, currentTemplateName } = gameState.getState();
     emitter.emit('solutionReveal');
-    
+
     setTimeout(() => {
       emitter.emit('gameOver', `You won in ${elapsedTime} seconds!`);
     }, 100);
@@ -109,6 +109,7 @@ export function setUpGame(
     correctCellsCount: calcCells(template.matrix),
     playerMatrix: generatePlayerMatrix(template.size),
     playerCorrectCellsCount: 0,
+    elapsedTime: 0,
   });
 
   emitter.on('cellClick', cellClickHandler);

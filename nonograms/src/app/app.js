@@ -60,6 +60,14 @@ function initApp() {
     }
   );
 
+  emitter.on('gameStarted', () => {
+    gameState.updateState({ isGameOver: false });
+  });
+
+  emitter.on('gameOver', () => {
+    gameState.updateState({ isGameOver: true });
+  });
+
   const gameControls = createGameControls(
     gameState,
     templates,

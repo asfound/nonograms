@@ -1,3 +1,4 @@
+import { saveGame } from '@/components/game/gameUtils';
 import { button, div } from '@/utils/createElement';
 
 import styles from './gameControls.module.css';
@@ -19,13 +20,25 @@ function createGameControls(gameState, templates, emitter, gameContainer) {
 
   resetButton.disabled = true;
 
-  emitter.on('gameStarted', () => {
-    resetButton.disabled = false;
-  });
-
   const saveButton = button({
     className: 'button',
     textContent: 'Save Game',
+  });
+
+  saveButton.disabled = true;
+
+  emitter.on('gameStarted', () => {
+    resetButton.disabled = false;
+    saveButton.disabled = false;
+  });
+
+  saveButton.addEventListener('click', () => {
+    const { isGameOver } = gameState.getState();
+
+    if (!isGameOver) {
+      emitter.emit('saveGame');
+      saveGame(gameState);
+    }
   });
 
   const solutionButton = button({
@@ -35,6 +48,7 @@ function createGameControls(gameState, templates, emitter, gameContainer) {
 
   emitter.on('solutionReveal', () => {
     solutionButton.disabled = true;
+    saveButton.disabled = true;
   });
 
   emitter.on('templateSelection', () => {
@@ -53,6 +67,7 @@ function createGameControls(gameState, templates, emitter, gameContainer) {
 
   solutionButton.addEventListener('click', () => {
     emitter.emit('solutionReveal');
+    gameState.updateState({ isGameOver: true });
     const gameContainerElement = gameContainer;
     gameContainerElement.style.pointerEvents = 'none';
 

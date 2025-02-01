@@ -47,9 +47,21 @@ function createTimer(gameState, emitter, parentElement) {
     seconds = 0;
   }
 
-  emitter.on('gameOver', stopTimer);
-  emitter.on('solutionReveal', stopTimer);
+  emitter.on('gameOver', () => {
+    stopTimer();
+    gameState.updateState({ elapsedTime: seconds });
+  });
+
+  emitter.on('solutionReveal', () => {
+    stopTimer();
+    gameState.updateState({ elapsedTime: seconds });
+  });
+
   emitter.on('gameStarted', startTimer);
+  
+  emitter.on('saveGame', () => {
+    gameState.updateState({ elapsedTime: seconds });
+  });
 
   return { resetTimer, stopTimer };
 }

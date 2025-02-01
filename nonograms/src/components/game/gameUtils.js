@@ -2,6 +2,7 @@ import templates from '@/components/game/templates';
 
 const LS_PREFIX = 'asfound-nonograms';
 const LS_SCORE_KEY = `${LS_PREFIX}-score`;
+const LS_GAME_KEY = `${LS_PREFIX}-game`;
 
 /**
  * @param {string} templateName
@@ -35,4 +36,26 @@ export function calculateMinutes(timeInSeconds) {
   const minutes = Math.floor(timeInSeconds / 60);
   const seconds = timeInSeconds % 60;
   return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+}
+
+/**
+ *
+ * @param {GameState} gameState
+ */
+export function saveGame(gameState) {
+  const {
+    currentTemplateName,
+    playerMatrix,
+    playerCorrectCellsCount,
+    elapsedTime,
+  } = gameState.getState();
+
+  const savedGame = {
+    name: currentTemplateName,
+    matrix: playerMatrix,
+    cellsCount: playerCorrectCellsCount,
+    seconds: elapsedTime,
+  };
+
+  localStorage.setItem(LS_GAME_KEY, JSON.stringify(savedGame));
 }
