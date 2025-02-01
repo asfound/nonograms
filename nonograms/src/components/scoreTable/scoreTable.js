@@ -7,15 +7,20 @@ import {
   td,
   th,
   tr,
+  p,
 } from '@/utils/createElement';
 
 import styles from './scoreTable.module.css';
 /**
- * @returns {HTMLTableElement}
+ * @returns {HTMLTableElement | HTMLParagraphElement}
  */
 function createScoreTable() {
   /** @type {GameResult[]} */
   const scores = getScores();
+
+  if (!scores || scores.length === 0) {
+    return p({ innerText: 'No results yet!' });
+  }
 
   const headers = Object.keys(scores[0]);
 
