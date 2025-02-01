@@ -1,3 +1,4 @@
+import createSoundManager from '@/components/audio/audio';
 import { setUpGame, handleCellClick } from '@/components/game/gameLogic';
 import createGameState from '@/components/game/gameState';
 import templates from '@/components/game/templates';
@@ -13,9 +14,10 @@ function initApp() {
   const emitter = createEventEmitter();
   const gameState = createGameState();
   createModal(emitter);
+  createSoundManager(gameState, emitter);
 
   const gameName = h1({ className: 'heading' });
-  gameName.textContent = 'Nonograms';;
+  gameName.textContent = 'Nonograms';
   document.body.appendChild(gameName);
 
   const puzzleMenu = createPuzzleMenu(templates, emitter);

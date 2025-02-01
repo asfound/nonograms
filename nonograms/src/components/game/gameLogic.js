@@ -68,12 +68,14 @@ export function handleCellClick(
 
   if (isPuzzleSolved(gameState)) {
     timer.stopTimer();
-    const { elapsedTime, currentTemplateName} = gameState.getState();
-    emitter.emit('gameOver', `You won in ${elapsedTime} seconds!`);
+    const { elapsedTime, currentTemplateName } = gameState.getState();
     emitter.emit('solutionReveal');
+    
+    setTimeout(() => {
+      emitter.emit('gameOver', `You won in ${elapsedTime} seconds!`);
+    }, 100);
 
-
-    saveScore(currentTemplateName, elapsedTime)
+    saveScore(currentTemplateName, elapsedTime);
 
     const gameContainerElement = gameContainer;
     gameContainerElement.style.pointerEvents = 'none';

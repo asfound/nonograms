@@ -44,25 +44,27 @@ function createGameSettings(gameState, emitter) {
     emitter.emit('toggleTheme');
   });
 
-  /** @param {HTMLButtonElement} buttonElement */
-  const setSoundButtonContent = (buttonElement) => {
-    const { sound } = gameState.getState();
-    const newModeValue = sound ? 'off' : 'on';
+  /**
+   * @param {HTMLButtonElement} buttonElement
+   * @param {boolean} mode
+   */
+  const setSoundButtonContent = (buttonElement, mode) => {
+    const newModeValue = mode ? 'off' : 'on';
     const content = `Sound ${newModeValue}`;
     const buttonToUpdate = buttonElement;
     buttonToUpdate.textContent = content;
-
-    gameState.updateState({ sound: !sound });
   };
 
   const soundButton = button({
     className: 'button',
   });
 
-  setSoundButtonContent(soundButton);
+  const initialMode = gameState.getState().sound;
+  setSoundButtonContent(soundButton, initialMode);
   soundButton.addEventListener('click', () => {
-    setSoundButtonContent(soundButton);
-    emitter.emit('toggleSound');
+    const { sound } = gameState.getState();
+    gameState.updateState({ sound: !sound });
+    setSoundButtonContent(soundButton, sound);
   });
 
   settingsContainer.appendChild(resultsButton);

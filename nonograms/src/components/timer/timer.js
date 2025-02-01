@@ -11,7 +11,7 @@ import styles from './timer.module.css';
  */
 function createTimer(gameState, emitter, parentElement) {
   let seconds = 0;
-  /** @type {NodeJS.Timeout | null} */
+  /** @type {number | null} */
   let interval = null;
 
   const timerElement = div({
