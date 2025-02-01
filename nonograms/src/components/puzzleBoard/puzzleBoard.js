@@ -12,11 +12,11 @@ import styles from './puzzleBoard.module.css';
  * @param {EventEmitter} emitter
  */
 function createPuzzleBoard(matrix, icon, emitter) {
-  const tableElement = table({className: styles.board});
+  const tableElement = table({ className: styles.board });
 
-  const tableHeadElement = thead({className: styles.head});
-  const tableHeadRowElement = tr({className: styles.row});
-  const tableHeaderElement = th({className: styles.heading});
+  const tableHeadElement = thead({ className: styles.head });
+  const tableHeadRowElement = tr({ className: styles.row });
+  const tableHeaderElement = th({ className: styles.heading });
 
   tableHeadRowElement.appendChild(tableHeaderElement);
   tableHeadElement.appendChild(tableHeadRowElement);
@@ -24,12 +24,11 @@ function createPuzzleBoard(matrix, icon, emitter) {
   const topHints = calculateTopHints(matrix);
   const sideHints = calculateSideHints(matrix);
 
-  const topRowElement = tr({className: styles.row});
-  const cornerElement = td({ innerText: icon, className: styles.cell });
-  cornerElement.classList.add(styles.icon)
+  const topRowElement = tr({ className: styles.row });
+  const cornerElement = td({ innerText: icon, className: styles.icon });
   topRowElement.appendChild(cornerElement);
 
-  const tableBody = tbody({className: styles.field});
+  const tableBody = tbody({ className: styles.field });
   tableBody.appendChild(topRowElement);
 
   tableBody.addEventListener(
@@ -65,7 +64,7 @@ function createPuzzleBoard(matrix, icon, emitter) {
   }
 
   const rows = matrix.map((row, rowIndex) => {
-    const rowElement = tr({className: styles.row});
+    const rowElement = tr({ className: styles.row });
     const hintElement = td({
       innerText: sideHints[rowIndex].join(' '),
       className: `${styles.hint} ${styles.cell}`,

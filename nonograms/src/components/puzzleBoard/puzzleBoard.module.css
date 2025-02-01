@@ -105,11 +105,11 @@
 }
 
 .icon {
-  padding: 1rem 1rem 0.5rem 1rem;
+  padding: 0.5rem 1rem;
+  border: var(--border-thick);
 
   font-size: calc(var(--cell-size) * 2.5);
   color: var(--icon-color);
-  text-align: center;
   text-shadow:
     0 0 5px white,
     0 0 10px white,
@@ -117,7 +117,7 @@
     0 0 40px var(--glow-color),
     0 0 50px var(--glow-color),
     0 0 75px var(--glow-color);
-  vertical-align: middle;
+  white-space: nowrap;
 
   background-color: var(--icon-background);
 }
