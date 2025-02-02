@@ -49,6 +49,7 @@ function createGameControls(gameState, templates, emitter, gameContainer) {
   continueButton.addEventListener('click', () => {
     continueButton.disabled = true;
     solutionButton.disabled = false;
+    saveButton.disabled = true;
     emitter.emit(Events.CONTINUE_GAME);
   });
 
@@ -83,6 +84,7 @@ function createGameControls(gameState, templates, emitter, gameContainer) {
     emitter.emit(Events.TEMPLATE_SELECTION, selectedTemplate);
 
     resetButton.disabled = true;
+    saveButton.disabled = true;
   });
 
   saveButton.addEventListener('click', () => {
