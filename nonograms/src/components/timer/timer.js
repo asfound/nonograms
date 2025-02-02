@@ -6,10 +6,9 @@ import styles from './timer.module.css';
 /**
  * @param {GameState} gameState
  * @param {EventEmitter} emitter
- * @param {HTMLElement} parentElement
- * @returns {TimerControls}
+ * @returns {Timer}
  */
-function createTimer(gameState, emitter, parentElement) {
+function createTimer(gameState, emitter) {
   let seconds = 0;
   /** @type {number | null} */
   let interval = null;
@@ -18,7 +17,6 @@ function createTimer(gameState, emitter, parentElement) {
     className: styles.timer,
     textContent: '00:00',
   });
-  parentElement.appendChild(timerElement);
 
   function updateTimerDisplay() {
     timerElement.textContent = calculateMinutes(seconds);
@@ -69,7 +67,10 @@ function createTimer(gameState, emitter, parentElement) {
     gameState.updateState({ elapsedTime: seconds });
   });
 
-  return { resetTimer, setTimer, stopTimer };
+  return {
+    timerElement,
+    controls: { resetTimer, setTimer, stopTimer },
+  };
 }
 
 export default createTimer;

@@ -48,6 +48,13 @@
  * @property {number} cellState
  */
 
+
+/**
+ * @typedef {Object} Timer
+ * @property {HTMLElement} timerElement
+ * @property {TimerControls} controls
+ */
+
 /**
  * @typedef {Object} TimerControls
  * @property {() => void} resetTimer

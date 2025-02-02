@@ -39,17 +39,18 @@ function initApp() {
   const puzzleMenu = createPuzzleMenu(templates, emitter);
   mainElement.appendChild(puzzleMenu.levelsContainer);
 
-  const timer = createTimer(gameState, emitter, mainElement);
+  const timer = createTimer(gameState, emitter);
+  mainElement.appendChild(timer.timerElement)
 
   const gameContainer = div({ className: 'container' });
   mainElement.appendChild(gameContainer);
 
   /** @param {CellParams} params */
   const cellClickHandler = (params) => {
-    handleCellClick(params, gameState, emitter, timer, gameContainer);
+    handleCellClick(params, gameState, emitter, timer.controls, gameContainer);
   };
 
-  setUpGame(gameState, emitter, timer, gameContainer, cellClickHandler);
+  setUpGame(gameState, emitter, timer.controls, gameContainer, cellClickHandler);
 
   emitter.on(
     'templateSelection',
@@ -57,14 +58,14 @@ function initApp() {
      * @param {Template} selectedTemplate
      */ (selectedTemplate) => {
       updateTemplateData(gameState, selectedTemplate);
-      setUpGame(gameState, emitter, timer, gameContainer, cellClickHandler);
+      setUpGame(gameState, emitter, timer.controls, gameContainer, cellClickHandler);
     }
   );
 
   emitter.on('continueGame', () => {
     const currentTemplate = loadGame(gameState);
     puzzleMenu.setMenuValues(currentTemplate);
-    setUpGame(gameState, emitter, timer, gameContainer, cellClickHandler);
+    setUpGame(gameState, emitter, timer.controls, gameContainer, cellClickHandler);
   });
 
   emitter.on('gameStarted', () => {
