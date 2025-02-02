@@ -1,6 +1,7 @@
 import { saveUserPreferences } from '@/components/game/gameUtils';
 import createScoreTable from '@/components/scoreTable/scoreTable';
 import { button, div } from '@/utils/createElement';
+import { Events } from '@/utils/eventEmitter';
 
 import styles from './gameSettingsPanel.module.css';
 
@@ -23,7 +24,7 @@ function createGameSettings(gameState, emitter) {
   resultsButton.addEventListener('click', () => {
     const scoreTable = createScoreTable();
 
-    emitter.emit('showScore', scoreTable);
+    emitter.emit(Events.SHOW_SCORE, scoreTable);
   });
 
   /** @param {HTMLButtonElement} buttonElement

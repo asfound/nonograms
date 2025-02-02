@@ -1,4 +1,5 @@
 import { button, dialog, div } from '@/utils/createElement';
+import { Events } from '@/utils/eventEmitter';
 
 import styles from './modal.module.css';
 
@@ -47,10 +48,10 @@ function createModal(emitter) {
     modalWindow.showModal();
   }
 
-  emitter.on('gameOver', showModal);
+  emitter.on(Events.GAME_OVER, showModal);
 
   emitter.on(
-    'showScore',
+    Events.SHOW_SCORE,
     /** @param {HTMLTableElement} scoreTable */ (scoreTable) => {
       showModal(scoreTable);
     }

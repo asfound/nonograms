@@ -1,4 +1,5 @@
 import { div, button, label, option, select } from '@/utils/createElement';
+import { Events } from '@/utils/eventEmitter';
 
 import styles from './puzzlesMenuPanel.module.css';
 
@@ -70,7 +71,7 @@ function createPuzzleMenu(templates, emitter) {
       const selectedTemplate = templates.find(
         (template) => template.size === selectedSize
       );
-      emitter.emit('templateSelection', selectedTemplate);
+      emitter.emit(Events.TEMPLATE_SELECTION, selectedTemplate);
     }
   });
 
@@ -82,7 +83,7 @@ function createPuzzleMenu(templates, emitter) {
         (template) => template.name === selectedTemplateName
       );
 
-      emitter.emit('templateSelection', selectedTemplate);
+      emitter.emit(Events.TEMPLATE_SELECTION, selectedTemplate);
     }
   });
 
@@ -105,7 +106,7 @@ function createPuzzleMenu(templates, emitter) {
       availableTemplates[Math.floor(Math.random() * availableTemplates.length)];
     templateSelectElement.value = randomTemplate.name;
 
-    emitter.emit('templateSelection', randomTemplate);
+    emitter.emit(Events.TEMPLATE_SELECTION, randomTemplate);
   }
 
   const randomGameButton = button({

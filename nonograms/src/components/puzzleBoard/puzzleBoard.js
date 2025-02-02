@@ -3,6 +3,7 @@ import {
   calculateTopHints,
 } from '@/components/puzzleBoard/boardUtils';
 import { table, thead, tbody, tr, th, td } from '@/utils/createElement';
+import { Events } from '@/utils/eventEmitter';
 
 import styles from './puzzleBoard.module.css';
 
@@ -39,7 +40,7 @@ function createPuzzleBoard(matrix, icon, emitter, userMatrix) {
     (event) => {
       if (event.target instanceof HTMLTableCellElement) {
         if (event.target.hasAttribute('data-state')) {
-          emitter.emit('gameStarted');
+          emitter.emit(Events.GAME_STARTED);
         }
       }
     },
@@ -79,7 +80,7 @@ function createPuzzleBoard(matrix, icon, emitter, userMatrix) {
       const cellValue = userMatrix[rowIndex][colIndex];
       cellElement.setAttribute('data-state', String(cellValue));
 
-      emitter.on('solutionReveal', () =>
+      emitter.on(Events.SOLUTION_REVEAL, () =>
         revealCell(cellElement, rowIndex, colIndex)
       );
 
@@ -89,7 +90,7 @@ function createPuzzleBoard(matrix, icon, emitter, userMatrix) {
           const updatedCellState = cellState !== '1' ? '1' : '0';
           cellElement.setAttribute('data-state', updatedCellState);
 
-          emitter.emit('cellClick', {
+          emitter.emit(Events.CELL_CLICK, {
             rowIndex,
             colIndex,
             cellElement,
@@ -104,7 +105,7 @@ function createPuzzleBoard(matrix, icon, emitter, userMatrix) {
         const updatedCellState = cellState !== '-1' ? '-1' : '0';
         cellElement.setAttribute('data-state', updatedCellState);
 
-        emitter.emit('cellClick', {
+        emitter.emit(Events.CELL_CLICK, {
           rowIndex,
           colIndex,
           cellState: updatedCellState,

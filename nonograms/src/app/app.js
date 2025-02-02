@@ -17,7 +17,7 @@ import createModal from '@/components/modal/modal';
 import createPuzzleMenu from '@/components/puzzlesMenuPanel/puzzlesMenuPanel';
 import createTimer from '@/components/timer/timer';
 import { div, main } from '@/utils/createElement';
-import createEventEmitter from '@/utils/eventEmitter';
+import createEventEmitter, { Events } from '@/utils/eventEmitter';
 
 /** @typedef {import('@/types/types').Template} Template */
 /** @typedef {import('@/types/types').CellParams} CellParams */
@@ -64,7 +64,7 @@ function initApp() {
   );
 
   emitter.on(
-    'templateSelection',
+    Events.TEMPLATE_SELECTION,
     /**
      * @param {Template} selectedTemplate
      */ (selectedTemplate) => {
@@ -79,7 +79,7 @@ function initApp() {
     }
   );
 
-  emitter.on('continueGame', () => {
+  emitter.on(Events.CONTINUE_GAME, () => {
     const currentTemplate = loadGame(gameState);
     puzzleMenu.setMenuValues(currentTemplate);
     setUpGame(
@@ -91,11 +91,11 @@ function initApp() {
     );
   });
 
-  emitter.on('gameStarted', () => {
+  emitter.on(Events.GAME_STARTED, () => {
     gameState.updateState({ isGameOver: false });
   });
 
-  emitter.on('gameOver', () => {
+  emitter.on(Events.GAME_OVER, () => {
     gameState.updateState({ isGameOver: true });
   });
 

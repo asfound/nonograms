@@ -1,6 +1,20 @@
 /** @typedef {import('@/types/types').EventEmitter} EventEmitter */
 
 /**
+ * @enum {string}
+ */
+export const Events = Object.freeze({
+  TEMPLATE_SELECTION: 'templateSelection',
+  GAME_STARTED: 'gameStarted',
+  GAME_OVER: 'gameOver',
+  CONTINUE_GAME: 'continueGame',
+  SAVE_GAME: 'saveGame',
+  SOLUTION_REVEAL: 'solutionReveal',
+  SHOW_SCORE: 'showScore',
+  CELL_CLICK: 'cellClick',
+});
+
+/**
  * @typedef {function} Listener
  */
 
@@ -9,14 +23,14 @@
  */
 
 function createEventEmitter() {
-  /** @type {{ [key: string]: Listener[] }} */
+  /** @type {{ [key in Events]?: Listener[] }} */
   const listeners = {};
 
   return {
     /**
-     * @param {string} event
-     * @param {function} listener
-     * @returns {function}
+     * @param {Events} event
+     * @param {Listener} listener
+     * @returns {Listener}
      */
     on(event, listener) {
       if (!listeners[event]) {
@@ -27,8 +41,8 @@ function createEventEmitter() {
     },
 
     /**
-     * @param {string} event
-     * @param {function} listener
+     * @param {Events} event
+     * @param {Listener} listener
      */
     off(event, listener) {
       if (listeners[event]) {
@@ -37,7 +51,7 @@ function createEventEmitter() {
     },
 
     /**
-     * @param {string} event
+     * @param {Events} event
      * @param {...*} args
      */
     emit(event, ...args) {
@@ -49,10 +63,10 @@ function createEventEmitter() {
     },
 
     /**
-     * @param {string} event
-     * @param {function} listener
+     * @param {Events} event
+     * @param {Listener} listener
      *
-     * @returns {function}
+     * @returns {Listener}
      */
     once(event, listener) {
       /** @param {...*} args */

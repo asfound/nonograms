@@ -2,6 +2,7 @@ import cross from '@/assets/audio/cross.mp3';
 import fill from '@/assets/audio/fill.mp3';
 import remove from '@/assets/audio/remove.mp3';
 import win from '@/assets/audio/win.mp3';
+import { Events } from '@/utils/eventEmitter';
 
 /** @typedef {import("@/types/types").GameState} GameState */
 /** @typedef {import('@/types/types').EventEmitter} EventEmitter */
@@ -40,7 +41,7 @@ function createSoundManager(gameState, emitter) {
   }
 
   emitter.on(
-    'cellClick',
+    Events.CELL_CLICK,
     /**
      * @param {CellParams} cellParams
      */ ({ cellState }) => {
@@ -49,7 +50,7 @@ function createSoundManager(gameState, emitter) {
     }
   );
 
-  emitter.on('gameOver', () => {
+  emitter.on(Events.GAME_OVER, () => {
     playSound('win');
   });
 

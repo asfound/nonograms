@@ -2,6 +2,7 @@ import renderTemplate from '@/components/game/gameRender';
 import { updateLoadedTemplateData } from '@/components/game/gameState';
 import { saveScore, loadGameData } from '@/components/game/gameUtils';
 import templates from '@/components/game/templates';
+import { Events } from '@/utils/eventEmitter';
 
 /** @typedef {import("@/types/types").GameState} GameState */
 /** @typedef {import('@/types/types').TimerControls} TimerControls */
@@ -73,10 +74,10 @@ export function handleCellClick(
   if (isPuzzleSolved(gameState)) {
     timer.stopTimer();
     const { elapsedTime, currentTemplateName } = gameState.getState();
-    emitter.emit('solutionReveal');
+    emitter.emit(Events.SOLUTION_REVEAL);
 
     setTimeout(() => {
-      emitter.emit('gameOver', `You won in ${elapsedTime} seconds!`);
+      emitter.emit(Events.GAME_OVER, `You won in ${elapsedTime} seconds!`);
     }, 100);
 
     saveScore(currentTemplateName, elapsedTime);
@@ -100,7 +101,7 @@ export function setUpGame(
   gameContainer,
   cellClickHandler
 ) {
-  emitter.off('cellClick', cellClickHandler);
+  emitter.off(Events.CELL_CLICK, cellClickHandler);
   const { currentTemplateName, elapsedTime, playerMatrix } =
     gameState.getState();
 
@@ -113,7 +114,7 @@ export function setUpGame(
   timer.resetTimer();
   timer.setTimer(elapsedTime);
 
-  emitter.on('cellClick', cellClickHandler);
+  emitter.on(Events.CELL_CLICK, cellClickHandler);
 }
 
 /**
@@ -159,16 +160,16 @@ export function continueGame(
  * @param {TimerControls} timerControls
  */
 export function setupTimer(emitter, gameState, timerControls) {
-  emitter.on('gameOver', () => {
+  emitter.on(Events.GAME_OVER, () => {
     timerControls.stopTimer();
     gameState.updateState({ elapsedTime: timerControls.getSeconds() });
   });
 
-  emitter.on('solutionReveal', timerControls.stopTimer);
+  emitter.on(Events.SOLUTION_REVEAL, timerControls.stopTimer);
 
-  emitter.on('gameStarted', timerControls.startTimer);
+  emitter.on(Events.GAME_STARTED, timerControls.startTimer);
 
-  emitter.on('saveGame', () => {
+  emitter.on(Events.SAVE_GAME, () => {
     gameState.updateState({ elapsedTime: timerControls.getSeconds() });
   });
 }

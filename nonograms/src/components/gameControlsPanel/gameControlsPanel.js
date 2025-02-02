@@ -1,5 +1,6 @@
 import { saveGameData, hasSavedGame } from '@/components/game/gameUtils';
 import { button, div } from '@/utils/createElement';
+import { Events } from '@/utils/eventEmitter';
 
 import styles from './gameControlsPanel.module.css';
 
@@ -35,7 +36,7 @@ function createGameControls(gameState, templates, emitter, gameContainer) {
     textContent: 'Solution',
   });
 
-  emitter.on('templateSelection', () => {
+  emitter.on(Events.TEMPLATE_SELECTION, () => {
     solutionButton.disabled = false;
   });
 
@@ -48,22 +49,22 @@ function createGameControls(gameState, templates, emitter, gameContainer) {
   continueButton.addEventListener('click', () => {
     continueButton.disabled = true;
     solutionButton.disabled = false;
-    emitter.emit('continueGame');
+    emitter.emit(Events.CONTINUE_GAME);
   });
 
-  emitter.on('gameStarted', () => {
+  emitter.on(Events.GAME_STARTED, () => {
     resetButton.disabled = false;
     saveButton.disabled = false;
     continueButton.disabled = !hasSavedGame();
   });
 
-  emitter.on('gameOver', () => {
+  emitter.on(Events.GAME_OVER, () => {
     solutionButton.disabled = true;
     saveButton.disabled = true;
   });
 
   solutionButton.addEventListener('click', () => {
-    emitter.emit('solutionReveal');
+    emitter.emit(Events.SOLUTION_REVEAL);
     gameState.updateState({ isGameOver: true });
     const gameContainerElement = gameContainer;
     gameContainerElement.style.pointerEvents = 'none';
@@ -79,7 +80,7 @@ function createGameControls(gameState, templates, emitter, gameContainer) {
     const selectedTemplate = templates.find(
       (template) => template.name === currentTemplateName
     );
-    emitter.emit('templateSelection', selectedTemplate);
+    emitter.emit(Events.TEMPLATE_SELECTION, selectedTemplate);
 
     resetButton.disabled = true;
   });
@@ -88,7 +89,7 @@ function createGameControls(gameState, templates, emitter, gameContainer) {
     const { isGameOver } = gameState.getState();
 
     if (!isGameOver) {
-      emitter.emit('saveGame');
+      emitter.emit(Events.SAVE_GAME);
       saveGameData(gameState);
     }
 
