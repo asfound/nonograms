@@ -6,6 +6,8 @@ import { table, thead, tbody, tr, th, td } from '@/utils/createElement';
 
 import styles from './puzzleBoard.module.css';
 
+/** @typedef {import('@/types/types').EventEmitter} EventEmitter */
+
 /**
  * @param {number[][]} matrix
  * @param {string} icon

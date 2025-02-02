@@ -3,6 +3,10 @@ import createScoreTable from '@/components/scoreTable/scoreTable';
 import { button, div } from '@/utils/createElement';
 
 import styles from './gameSettingsPanel.module.css';
+
+/** @typedef {import("@/types/types").GameState} GameState */
+/** @typedef {import('@/types/types').EventEmitter} EventEmitter */
+
 /**
  * @param {GameState} gameState
  * @param {EventEmitter} emitter

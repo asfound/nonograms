@@ -1,9 +1,15 @@
+/** @typedef {import('@/types/types').EventEmitter} EventEmitter */
+
+/**
+ * @typedef {function} Listener
+ */
+
 /**
  * @returns {EventEmitter}
  */
 
 function createEventEmitter() {
-  /** @type {Record<string, Listener[]>} */
+  /** @type {{ [key: string]: Listener[] }} */
   const listeners = {};
 
   return {

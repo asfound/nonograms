@@ -3,6 +3,12 @@ import { updateLoadedTemplateData } from '@/components/game/gameState';
 import { saveScore, loadGameData } from '@/components/game/gameUtils';
 import templates from '@/components/game/templates';
 
+/** @typedef {import("@/types/types").GameState} GameState */
+/** @typedef {import('@/types/types').TimerControls} TimerControls */
+/** @typedef {import('@/types/types').EventEmitter} EventEmitter */
+/** @typedef {import('@/types/types').Template} Template */
+/** @typedef {import('@/types/types').CellParams} CellParams */
+
 /**
  * @param {GameState} gameState
  */

@@ -2,6 +2,11 @@ import { saveGameData, hasSavedGame } from '@/components/game/gameUtils';
 import { button, div } from '@/utils/createElement';
 
 import styles from './gameControlsPanel.module.css';
+
+/** @typedef {import("@/types/types").GameState} GameState */
+/** @typedef {import('@/types/types').EventEmitter} EventEmitter */
+/** @typedef {import('@/types/types').Template} Template */
+
 /**
  * @param {GameState} gameState
  * @param {Template[]} templates
@@ -55,7 +60,7 @@ function createGameControls(gameState, templates, emitter, gameContainer) {
   emitter.on('gameOver', () => {
     solutionButton.disabled = true;
     saveButton.disabled = true;
-  })
+  });
 
   solutionButton.addEventListener('click', () => {
     emitter.emit('solutionReveal');
@@ -89,7 +94,6 @@ function createGameControls(gameState, templates, emitter, gameContainer) {
 
     continueButton.disabled = false;
   });
-
 
   controlsContainer.appendChild(resetButton);
   controlsContainer.appendChild(saveButton);

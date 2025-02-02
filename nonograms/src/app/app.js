@@ -19,6 +19,9 @@ import createTimer from '@/components/timer/timer';
 import { div, main } from '@/utils/createElement';
 import createEventEmitter from '@/utils/eventEmitter';
 
+/** @typedef {import('@/types/types').Template} Template */
+/** @typedef {import('@/types/types').CellParams} CellParams */
+
 function initApp() {
   const emitter = createEventEmitter();
 

@@ -11,6 +11,9 @@ import {
 } from '@/utils/createElement';
 
 import styles from './scoreTable.module.css';
+
+/** @typedef {import('@/types/types').GameResult} GameResult */
+
 /**
  * @returns {HTMLTableElement | HTMLParagraphElement}
  */

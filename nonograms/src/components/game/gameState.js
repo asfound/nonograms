@@ -3,6 +3,11 @@ import {
   generatePlayerMatrix,
 } from '@/components/puzzleBoard/boardUtils';
 
+/** @typedef {import("@/types/types").State} State */
+/** @typedef {import("@/types/types").GameState} GameState */
+/** @typedef {import('@/types/types').UserPreferences} UserPreferences */
+/** @typedef {import('@/types/types').Template} Template */
+
 /**
  * @param {Template} template
  * @param {UserPreferences} userPreferences

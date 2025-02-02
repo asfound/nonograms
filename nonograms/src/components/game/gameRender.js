@@ -1,5 +1,8 @@
 import createPuzzleBoard from '@/components/puzzleBoard/puzzleBoard';
 
+/** @typedef {import('@/types/types').EventEmitter} EventEmitter */
+/** @typedef {import('@/types/types').Template} Template */
+
 /**
  * @param {Template} template
  * @param {HTMLElement} gameContainer

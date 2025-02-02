@@ -2,6 +2,9 @@ import { div, button, label, option, select } from '@/utils/createElement';
 
 import styles from './puzzlesMenuPanel.module.css';
 
+/** @typedef {import('@/types/types').EventEmitter} EventEmitter */
+/** @typedef {import('@/types/types').Template} Template */
+
 const SIZES = [
   { value: 5, label: 'Easy' },
   { value: 10, label: 'Medium' },
@@ -11,7 +14,7 @@ const SIZES = [
 const INITIAL_SIZE = 5;
 
 /**
- * @param {Array<{ name: string, icon: string, size: number, matrix: number[][] }>} templates
+ * @param {Template[]} templates
  * @param {EventEmitter} emitter
  */
 function createPuzzleMenu(templates, emitter) {

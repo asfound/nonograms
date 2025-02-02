@@ -1,5 +1,10 @@
 import templates from '@/components/game/templates';
 
+/** @typedef {import("@/types/types").GameState} GameState */
+/** @typedef {import('@/types/types').StateData} StateData */
+/** @typedef {import('@/types/types').UserPreferences} UserPreferences */
+/** @typedef {import('@/types/types').GameResult} GameResult */
+
 const LS_PREFIX = 'asfound-nonograms';
 const LS_SCORE_KEY = `${LS_PREFIX}-score`;
 const LS_GAME_KEY = `${LS_PREFIX}-game`;

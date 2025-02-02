@@ -1,4 +1,4 @@
-/** @type {Template[]} */
+/** @typedef {import('@/types/types').Template} Template */
 
 const templates = [
   {

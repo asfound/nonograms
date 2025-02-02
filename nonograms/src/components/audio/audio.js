@@ -3,6 +3,10 @@ import fill from '@/assets/audio/fill.mp3';
 import remove from '@/assets/audio/remove.mp3';
 import win from '@/assets/audio/win.mp3';
 
+/** @typedef {import("@/types/types").GameState} GameState */
+/** @typedef {import('@/types/types').EventEmitter} EventEmitter */
+/** @typedef {import('@/types/types').CellParams} CellParams */
+
 /**
  * @param {EventEmitter} emitter
  * @param {GameState} gameState

@@ -2,6 +2,8 @@ import { button, dialog, div } from '@/utils/createElement';
 
 import styles from './modal.module.css';
 
+/** @typedef {import('@/types/types').EventEmitter} EventEmitter */
+
 /**
  * @param {EventEmitter} emitter
  */
