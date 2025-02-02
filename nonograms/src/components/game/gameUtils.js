@@ -67,3 +67,7 @@ export function loadGameData() {
   const savedGame = localStorage.getItem(LS_GAME_KEY);
   return /** @type {StateData} */ (JSON.parse(savedGame || ''));
 }
+
+export function hasSavedGame() {
+  return localStorage.getItem(LS_GAME_KEY) !== null;
+}

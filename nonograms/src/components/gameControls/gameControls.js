@@ -1,4 +1,4 @@
-import { saveGameData } from '@/components/game/gameUtils';
+import { saveGameData, hasSavedGame } from '@/components/game/gameUtils';
 import { button, div } from '@/utils/createElement';
 
 import styles from './gameControls.module.css';
@@ -17,37 +17,56 @@ function createGameControls(gameState, templates, emitter, gameContainer) {
     className: 'button',
     textContent: 'Reset Game',
   });
-
   resetButton.disabled = true;
 
   const saveButton = button({
     className: 'button',
     textContent: 'Save Game',
   });
-
   saveButton.disabled = true;
-
-  saveButton.addEventListener('click', () => {
-    const { isGameOver } = gameState.getState();
-
-    if (!isGameOver) {
-      emitter.emit('saveGame');
-      saveGameData(gameState);
-    }
-  });
 
   const solutionButton = button({
     className: 'button',
     textContent: 'Solution',
   });
 
-  emitter.on('solutionReveal', () => {
-    solutionButton.disabled = true;
-    saveButton.disabled = true;
-  });
-
   emitter.on('templateSelection', () => {
     solutionButton.disabled = false;
+  });
+
+  const continueButton = button({
+    className: 'button continue-button',
+    textContent: 'Continue Last Game',
+  });
+  continueButton.disabled = !hasSavedGame();
+
+  continueButton.addEventListener('click', () => {
+    continueButton.disabled = true;
+    solutionButton.disabled = false;
+    emitter.emit('continueGame');
+  });
+
+  emitter.on('gameStarted', () => {
+    resetButton.disabled = false;
+    saveButton.disabled = false;
+    continueButton.disabled = !hasSavedGame();
+  });
+
+  emitter.on('gameOver', () => {
+    solutionButton.disabled = true;
+    saveButton.disabled = true;
+  })
+
+  solutionButton.addEventListener('click', () => {
+    emitter.emit('solutionReveal');
+    gameState.updateState({ isGameOver: true });
+    const gameContainerElement = gameContainer;
+    gameContainerElement.style.pointerEvents = 'none';
+
+    resetButton.disabled = false;
+    saveButton.disabled = true;
+    solutionButton.disabled = true;
+    continueButton.disabled = !hasSavedGame();
   });
 
   resetButton.addEventListener('click', () => {
@@ -60,29 +79,25 @@ function createGameControls(gameState, templates, emitter, gameContainer) {
     resetButton.disabled = true;
   });
 
-  solutionButton.addEventListener('click', () => {
-    emitter.emit('solutionReveal');
-    gameState.updateState({ isGameOver: true });
-    const gameContainerElement = gameContainer;
-    gameContainerElement.style.pointerEvents = 'none';
+  saveButton.addEventListener('click', () => {
+    const { isGameOver } = gameState.getState();
 
-    solutionButton.disabled = true;
-    resetButton.disabled = false;
+    if (!isGameOver) {
+      emitter.emit('saveGame');
+      saveGameData(gameState);
+    }
+
+    continueButton.disabled = false;
   });
 
-  const continueButton = button({
-    className: 'button continue-button',
-    textContent: 'Continue Last Game',
-  });
+  saveButton.addEventListener('click', () => {
+    const { isGameOver } = gameState.getState();
 
-  continueButton.addEventListener('click', () => {
-    continueButton.disabled = true;
-    emitter.emit('continueGame');
-  });
+    if (!isGameOver) {
+      emitter.emit('saveGame');
+      saveGameData(gameState);
+    }
 
-  emitter.on('gameStarted', () => {
-    resetButton.disabled = false;
-    saveButton.disabled = false;
     continueButton.disabled = false;
   });
 
