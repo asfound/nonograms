@@ -1,9 +1,8 @@
 import renderTemplate from '@/components/game/gameRender';
-import { saveScore } from '@/components/game/gameUtils';
-import {
-  calcCells,
-  generatePlayerMatrix,
-} from '@/components/puzzleBoard/boardUtils';
+import { updateLoadedTemplateData } from '@/components/game/gameState';
+import { saveScore, loadGameData } from '@/components/game/gameUtils';
+import templates from '@/components/game/templates';
+
 /**
  * @param {GameState} gameState
  */
@@ -11,7 +10,6 @@ export function isPuzzleSolved(gameState) {
   const { correctCellsCount, playerCorrectCellsCount } = gameState.getState();
   return correctCellsCount === playerCorrectCellsCount;
 }
-
 /**
  * @param {CellParams} params
  * @param {GameState} gameState
@@ -83,7 +81,6 @@ export function handleCellClick(
 }
 
 /**
- * @param {Template} template
  * @param {GameState} gameState
  * @param {EventEmitter} emitter
  * @param {TimerControls} timer
@@ -91,7 +88,6 @@ export function handleCellClick(
  * @param {function} cellClickHandler
  * */
 export function setUpGame(
-  template,
   gameState,
   emitter,
   timer,
@@ -99,18 +95,53 @@ export function setUpGame(
   cellClickHandler
 ) {
   emitter.off('cellClick', cellClickHandler);
+  const { currentTemplateName, elapsedTime, playerMatrix } =
+    gameState.getState();
 
-  renderTemplate(template, gameContainer, emitter);
+  const currentTemplate = /** @type {Template} */ (
+    templates.find((t) => t.name === currentTemplateName)
+  );
+
+  renderTemplate(currentTemplate, gameContainer, emitter, playerMatrix);
+
   timer.resetTimer();
-
-  gameState.updateState({
-    currentTemplateName: template.name,
-    currentTemplateMatrix: template.matrix,
-    correctCellsCount: calcCells(template.matrix),
-    playerMatrix: generatePlayerMatrix(template.size),
-    playerCorrectCellsCount: 0,
-    elapsedTime: 0,
-  });
+  timer.setTimer(elapsedTime);
 
   emitter.on('cellClick', cellClickHandler);
+}
+
+/**
+ *
+ * @param {GameState} gameState
+ * @returns {Template}
+ */
+export function loadGame(gameState) {
+  const loadedGame = loadGameData();
+
+  const { name, matrix, cellsCount, seconds } = loadedGame;
+
+  const template = templates.find((t) => t.name === name);
+
+  if (template) {
+    updateLoadedTemplateData(gameState, template, matrix, cellsCount, seconds);
+  }
+  return /** @type {Template} */ (template);
+}
+
+/**
+ * @param {GameState} gameState
+ * @param {EventEmitter} emitter
+ * @param {TimerControls} timer
+ * @param {HTMLElement} gameContainer
+ * @param {function} cellClickHandler
+ * */
+export function continueGame(
+  gameState,
+  emitter,
+  timer,
+  gameContainer,
+  cellClickHandler
+) {
+  loadGame(gameState);
+  setUpGame(gameState, emitter, timer, gameContainer, cellClickHandler);
 }

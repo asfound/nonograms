@@ -47,23 +47,29 @@ function createTimer(gameState, emitter, parentElement) {
     seconds = 0;
   }
 
+  /**
+   *
+   * @param {number} currentSeconds
+   */
+  function setTimer(currentSeconds) {
+    seconds = currentSeconds;
+    timerElement.textContent = calculateMinutes(seconds);
+  }
+
   emitter.on('gameOver', () => {
     stopTimer();
     gameState.updateState({ elapsedTime: seconds });
   });
 
-  emitter.on('solutionReveal', () => {
-    stopTimer();
-    gameState.updateState({ elapsedTime: seconds });
-  });
+  emitter.on('solutionReveal', stopTimer);
 
   emitter.on('gameStarted', startTimer);
-  
+
   emitter.on('saveGame', () => {
     gameState.updateState({ elapsedTime: seconds });
   });
 
-  return { resetTimer, stopTimer };
+  return { resetTimer, setTimer, stopTimer };
 }
 
 export default createTimer;

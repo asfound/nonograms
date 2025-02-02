@@ -16,7 +16,7 @@ const INITIAL_SIZE = 5;
  */
 function createPuzzleMenu(templates, emitter) {
   const levelsContainer = div({ className: styles.levels });
-  levelsContainer.classList.add('panel')
+  levelsContainer.classList.add('panel');
 
   const labelElement = label({
     className: styles.label,
@@ -114,7 +114,18 @@ function createPuzzleMenu(templates, emitter) {
   levelsContainer.appendChild(templateSelectElement);
   levelsContainer.appendChild(randomGameButton);
 
-  return levelsContainer;
+  /**
+   *
+   * @param {Template} template
+   */
+  function setMenuValues(template) {
+    const { size, name } = template;
+    sizeSelectElement.value = size.toString();
+    updateTemplateNames(size);
+    templateSelectElement.value = name;
+  }
+
+  return { setMenuValues, levelsContainer };
 }
 
 export default createPuzzleMenu;

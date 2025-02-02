@@ -10,8 +10,9 @@ import styles from './puzzleBoard.module.css';
  * @param {number[][]} matrix
  * @param {string} icon
  * @param {EventEmitter} emitter
+ * @param {number[][]} userMatrix
  */
-function createPuzzleBoard(matrix, icon, emitter) {
+function createPuzzleBoard(matrix, icon, emitter, userMatrix) {
   const tableElement = table({ className: styles.board });
 
   const tableHeadElement = thead({ className: styles.head });
@@ -72,7 +73,9 @@ function createPuzzleBoard(matrix, icon, emitter) {
 
     const cells = row.map((_, colIndex) => {
       const cellElement = td({ className: styles.cell });
-      cellElement.setAttribute('data-state', '0');
+
+      const cellValue = userMatrix[rowIndex][colIndex];
+      cellElement.setAttribute('data-state', String(cellValue));
 
       emitter.on('solutionReveal', () =>
         revealCell(cellElement, rowIndex, colIndex)

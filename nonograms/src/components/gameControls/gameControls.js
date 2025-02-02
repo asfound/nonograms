@@ -1,4 +1,4 @@
-import { saveGame } from '@/components/game/gameUtils';
+import { saveGameData } from '@/components/game/gameUtils';
 import { button, div } from '@/utils/createElement';
 
 import styles from './gameControls.module.css';
@@ -27,17 +27,12 @@ function createGameControls(gameState, templates, emitter, gameContainer) {
 
   saveButton.disabled = true;
 
-  emitter.on('gameStarted', () => {
-    resetButton.disabled = false;
-    saveButton.disabled = false;
-  });
-
   saveButton.addEventListener('click', () => {
     const { isGameOver } = gameState.getState();
 
     if (!isGameOver) {
       emitter.emit('saveGame');
-      saveGame(gameState);
+      saveGameData(gameState);
     }
   });
 
@@ -78,6 +73,17 @@ function createGameControls(gameState, templates, emitter, gameContainer) {
   const continueButton = button({
     className: 'button continue-button',
     textContent: 'Continue Last Game',
+  });
+
+  continueButton.addEventListener('click', () => {
+    continueButton.disabled = true;
+    emitter.emit('continueGame');
+  });
+
+  emitter.on('gameStarted', () => {
+    resetButton.disabled = false;
+    saveButton.disabled = false;
+    continueButton.disabled = false;
   });
 
   controlsContainer.appendChild(resetButton);

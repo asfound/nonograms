@@ -42,7 +42,7 @@ export function calculateMinutes(timeInSeconds) {
  *
  * @param {GameState} gameState
  */
-export function saveGame(gameState) {
+export function saveGameData(gameState) {
   const {
     currentTemplateName,
     playerMatrix,
@@ -58,4 +58,12 @@ export function saveGame(gameState) {
   };
 
   localStorage.setItem(LS_GAME_KEY, JSON.stringify(savedGame));
+}
+
+/**
+ * @returns {StateData}
+ */
+export function loadGameData() {
+  const savedGame = localStorage.getItem(LS_GAME_KEY);
+  return /** @type {StateData} */ (JSON.parse(savedGame || ''));
 }

@@ -18,6 +18,13 @@
  * @property {(update: Partial<State>) => void} updateState
  * /
 
+/**
+ * @typedef {Object} StateData
+ * @property {string} name
+ * @property {number[][]} matrix
+ * @property {number} cellsCount
+ * @property {number} seconds
+ */
 
 // game types
 /**
@@ -38,6 +45,7 @@
 /**
  * @typedef {Object} TimerControls
  * @property {() => void} resetTimer
+ *  @property {(currentSeconds: number) => void} setTimer
  * @property {() => void} stopTimer
  */
 
