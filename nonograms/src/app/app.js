@@ -10,10 +10,11 @@ import createGameState, {
 import templates from '@/components/game/templates';
 import createGameControls from '@/components/gameControls/gameControls';
 import createGameSettings from '@/components/gameSettings/gameSettings';
+import createHeaderElement from '@/components/header/header';
 import createModal from '@/components/modal/modal';
 import createPuzzleMenu from '@/components/puzzlesMenu/puzzlesMenu';
 import createTimer from '@/components/timer/timer';
-import { div, h1 } from '@/utils/createElement';
+import { div } from '@/utils/createElement';
 import createEventEmitter from '@/utils/eventEmitter';
 
 function initApp() {
@@ -26,9 +27,10 @@ function initApp() {
   createModal(emitter);
   createSoundManager(gameState, emitter);
 
-  const gameName = h1({ className: 'heading' });
-  gameName.textContent = 'Nonograms';
-  document.body.appendChild(gameName);
+  const gameName = 'Nonograms';
+  const header = createHeaderElement(gameName);
+
+  document.body.appendChild(header);
 
   const puzzleMenu = createPuzzleMenu(templates, emitter);
   document.body.appendChild(puzzleMenu.levelsContainer);

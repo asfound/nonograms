@@ -98,8 +98,3 @@ body {
     0 0 75px var(--glow-color);
   background-color: var(--secondary);
 }
-
-.heading {
-  color: var(--main);
-  text-align: center;
-}
