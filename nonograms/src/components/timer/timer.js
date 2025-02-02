@@ -5,10 +5,9 @@ import styles from './timer.module.css';
 
 /**
  * @param {GameState} gameState
- * @param {EventEmitter} emitter
  * @returns {Timer}
  */
-function createTimer(gameState, emitter) {
+function createTimer(gameState) {
   let seconds = 0;
   /** @type {number | null} */
   let interval = null;
@@ -54,22 +53,16 @@ function createTimer(gameState, emitter) {
     timerElement.textContent = calculateMinutes(seconds);
   }
 
-  emitter.on('gameOver', () => {
-    stopTimer();
-    gameState.updateState({ elapsedTime: seconds });
-  });
-
-  emitter.on('solutionReveal', stopTimer);
-
-  emitter.on('gameStarted', startTimer);
-
-  emitter.on('saveGame', () => {
-    gameState.updateState({ elapsedTime: seconds });
-  });
+  /**
+   * @returns {number}
+   */
+  function getSeconds() {
+    return seconds;
+  }
 
   return {
     timerElement,
-    controls: { resetTimer, setTimer, stopTimer },
+    controls: { resetTimer, setTimer, stopTimer, getSeconds, startTimer },
   };
 }
 

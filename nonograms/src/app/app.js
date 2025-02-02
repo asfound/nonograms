@@ -3,17 +3,18 @@ import {
   setUpGame,
   handleCellClick,
   loadGame,
+  setupTimer,
 } from '@/components/game/gameLogic';
 import createGameState, {
   updateTemplateData,
 } from '@/components/game/gameState';
 import { loadUserPreferencesOrDefault } from '@/components/game/gameUtils';
 import templates from '@/components/game/templates';
-import createGameControls from '@/components/gameControls/gameControls';
-import createGameSettings from '@/components/gameSettings/gameSettings';
+import createGameControls from '@/components/gameControlsPanel/gameControlsPanel';
+import createGameSettings from '@/components/gameSettingsPanel/gameSettingsPanel';
 import createHeaderElement from '@/components/header/header';
 import createModal from '@/components/modal/modal';
-import createPuzzleMenu from '@/components/puzzlesMenu/puzzlesMenu';
+import createPuzzleMenu from '@/components/puzzlesMenuPanel/puzzlesMenuPanel';
 import createTimer from '@/components/timer/timer';
 import { div, main } from '@/utils/createElement';
 import createEventEmitter from '@/utils/eventEmitter';
@@ -39,8 +40,9 @@ function initApp() {
   const puzzleMenu = createPuzzleMenu(templates, emitter);
   mainElement.appendChild(puzzleMenu.levelsContainer);
 
-  const timer = createTimer(gameState, emitter);
-  mainElement.appendChild(timer.timerElement)
+  const timer = createTimer(gameState);
+  mainElement.appendChild(timer.timerElement);
+  setupTimer(emitter, gameState, timer.controls);
 
   const gameContainer = div({ className: 'container' });
   mainElement.appendChild(gameContainer);
@@ -50,7 +52,13 @@ function initApp() {
     handleCellClick(params, gameState, emitter, timer.controls, gameContainer);
   };
 
-  setUpGame(gameState, emitter, timer.controls, gameContainer, cellClickHandler);
+  setUpGame(
+    gameState,
+    emitter,
+    timer.controls,
+    gameContainer,
+    cellClickHandler
+  );
 
   emitter.on(
     'templateSelection',
@@ -58,14 +66,26 @@ function initApp() {
      * @param {Template} selectedTemplate
      */ (selectedTemplate) => {
       updateTemplateData(gameState, selectedTemplate);
-      setUpGame(gameState, emitter, timer.controls, gameContainer, cellClickHandler);
+      setUpGame(
+        gameState,
+        emitter,
+        timer.controls,
+        gameContainer,
+        cellClickHandler
+      );
     }
   );
 
   emitter.on('continueGame', () => {
     const currentTemplate = loadGame(gameState);
     puzzleMenu.setMenuValues(currentTemplate);
-    setUpGame(gameState, emitter, timer.controls, gameContainer, cellClickHandler);
+    setUpGame(
+      gameState,
+      emitter,
+      timer.controls,
+      gameContainer,
+      cellClickHandler
+    );
   });
 
   emitter.on('gameStarted', () => {

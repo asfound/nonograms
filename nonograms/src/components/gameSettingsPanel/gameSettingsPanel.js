@@ -2,7 +2,7 @@ import { saveUserPreferences } from '@/components/game/gameUtils';
 import createScoreTable from '@/components/scoreTable/scoreTable';
 import { button, div } from '@/utils/createElement';
 
-import styles from './gameSettings.module.css';
+import styles from './gameSettingsPanel.module.css';
 /**
  * @param {GameState} gameState
  * @param {EventEmitter} emitter

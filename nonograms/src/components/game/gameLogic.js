@@ -145,3 +145,24 @@ export function continueGame(
   loadGame(gameState);
   setUpGame(gameState, emitter, timer, gameContainer, cellClickHandler);
 }
+
+/**
+ *
+ * @param {EventEmitter} emitter
+ * @param {GameState} gameState
+ * @param {TimerControls} timerControls
+ */
+export function setupTimer(emitter, gameState, timerControls) {
+  emitter.on('gameOver', () => {
+    timerControls.stopTimer();
+    gameState.updateState({ elapsedTime: timerControls.getSeconds() });
+  });
+
+  emitter.on('solutionReveal', timerControls.stopTimer);
+
+  emitter.on('gameStarted', timerControls.startTimer);
+
+  emitter.on('saveGame', () => {
+    gameState.updateState({ elapsedTime: timerControls.getSeconds() });
+  });
+}

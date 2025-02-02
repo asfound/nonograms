@@ -1,6 +1,6 @@
 import { div, button, label, option, select } from '@/utils/createElement';
 
-import styles from './puzzlesMenu.module.css';
+import styles from './puzzlesMenuPanel.module.css';
 
 const SIZES = [
   { value: 5, label: 'Easy' },

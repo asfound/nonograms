@@ -1,7 +1,7 @@
 import { saveGameData, hasSavedGame } from '@/components/game/gameUtils';
 import { button, div } from '@/utils/createElement';
 
-import styles from './gameControls.module.css';
+import styles from './gameControlsPanel.module.css';
 /**
  * @param {GameState} gameState
  * @param {Template[]} templates

@@ -48,7 +48,6 @@
  * @property {number} cellState
  */
 
-
 /**
  * @typedef {Object} Timer
  * @property {HTMLElement} timerElement
@@ -60,6 +59,8 @@
  * @property {() => void} resetTimer
  *  @property {(currentSeconds: number) => void} setTimer
  * @property {() => void} stopTimer
+ * @property {() => void} startTimer
+ * @property {() => number} getSeconds
  */
 
 // emitter types
