@@ -90,17 +90,6 @@ function createGameControls(gameState, templates, emitter, gameContainer) {
     continueButton.disabled = false;
   });
 
-  saveButton.addEventListener('click', () => {
-    const { isGameOver } = gameState.getState();
-
-    if (!isGameOver) {
-      emitter.emit('saveGame');
-      saveGameData(gameState);
-    }
-
-    continueButton.disabled = false;
-  });
-
   controlsContainer.appendChild(resetButton);
   controlsContainer.appendChild(saveButton);
   controlsContainer.appendChild(solutionButton);
