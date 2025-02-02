@@ -14,7 +14,7 @@ import createHeaderElement from '@/components/header/header';
 import createModal from '@/components/modal/modal';
 import createPuzzleMenu from '@/components/puzzlesMenu/puzzlesMenu';
 import createTimer from '@/components/timer/timer';
-import { div } from '@/utils/createElement';
+import { div, main } from '@/utils/createElement';
 import createEventEmitter from '@/utils/eventEmitter';
 
 function initApp() {
@@ -29,16 +29,18 @@ function initApp() {
 
   const gameName = 'Nonograms';
   const header = createHeaderElement(gameName);
-
   document.body.appendChild(header);
 
-  const puzzleMenu = createPuzzleMenu(templates, emitter);
-  document.body.appendChild(puzzleMenu.levelsContainer);
+  const mainElement = main({ className: 'main' });
+  document.body.appendChild(mainElement);
 
-  const timer = createTimer(gameState, emitter, document.body);
+  const puzzleMenu = createPuzzleMenu(templates, emitter);
+  mainElement.appendChild(puzzleMenu.levelsContainer);
+
+  const timer = createTimer(gameState, emitter, mainElement);
 
   const gameContainer = div({ className: 'container' });
-  document.body.appendChild(gameContainer);
+  mainElement.appendChild(gameContainer);
 
   /** @param {CellParams} params */
   const cellClickHandler = (params) => {
@@ -77,10 +79,10 @@ function initApp() {
     emitter,
     gameContainer
   );
-  document.body.appendChild(gameControls);
+  mainElement.appendChild(gameControls);
 
   const gameSettings = createGameSettings(gameState, emitter);
-  document.body.appendChild(gameSettings);
+  mainElement.appendChild(gameSettings);
 }
 
 export default initApp;
