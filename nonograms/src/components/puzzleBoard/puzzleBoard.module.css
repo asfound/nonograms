@@ -10,6 +10,11 @@
   text-align: center;
 
   background-color: var(--secondary);
+  box-shadow:
+    0 0 5px var(--glow-color),
+    0 0 10px var(--glow-color),
+    0 0 20px var(--glow-color),
+    0 0 40px var(--glow-color);
 }
 
 .head,
@@ -30,31 +35,50 @@
   background-color: var(--board-color);
 
   transition: background-color 0.1s;
+
 }
 
-.cell[data-state='1'] {
-  border-color: var(--main-dimmed);
-  background-color: var(--cell-color);
-  box-shadow:
+.cell[data-state='0'] {
+    box-shadow:
     0 0 5px var(--glow-color),
     0 0 10px var(--glow-color),
     0 0 20px var(--glow-color),
     0 0 40px var(--glow-color);
 }
 
+.cell[data-state='1'] {
+  border-color: var(--main-dimmed);
+  background-color: var(--cell-color);
+  /* box-shadow:
+    0 0 5px var(--glow-color),
+    0 0 10px var(--glow-color),
+    0 0 20px var(--glow-color),
+    0 0 40px var(--glow-color); */
+}
+
 .cell[data-state='-1'] {
   position: relative;
+  box-shadow:
+  0 0 5px var(--glow-color),
+  0 0 10px var(--glow-color),
+  0 0 20px var(--glow-color),
+  0 0 40px var(--glow-color);
 }
 
 .cell[data-state='-1']::before,
 .cell[data-state='-1']::after {
   content: '';
-
+  box-shadow:
+    0 0 5px var(--glow-color),
+    0 0 10px var(--glow-color),
+    0 0 20px var(--glow-color),
+    0 0 40px var(--glow-color);
   position: absolute;
   top: 50%;
 
   width: 140%;
   height: 1px;
+
 
   background-color: var(--cross-color);
 }

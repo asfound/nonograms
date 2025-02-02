@@ -19,10 +19,10 @@
   --main: white;
   --main-dimmed: rgb(220, 220, 220);
   --secondary: black;
-  --border-thick: 2px solid var(--main);
-  --border-thin: 1px solid var(--main);
-  --board-color: var(--secondary);
-  --cell-color: var(--main);
+  --border-thick: 2px solid var(--main-dimmed);
+  --border-thin: 1px solid var(--main-dimmed);
+  --board-color: var(--glow-color);
+  --cell-color: var(--secondary);
   --cross-color: rgb(170, 170, 170);
   --glow-color: var(--main);
 }
