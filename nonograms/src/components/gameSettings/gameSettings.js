@@ -1,3 +1,4 @@
+import { saveUserPreferences } from '@/components/game/gameUtils';
 import createScoreTable from '@/components/scoreTable/scoreTable';
 import { button, div } from '@/utils/createElement';
 
@@ -21,15 +22,20 @@ function createGameSettings(gameState, emitter) {
     emitter.emit('showScore', scoreTable);
   });
 
-  /** @param {HTMLButtonElement} buttonElement */
-  const setThemeButtonContent = (buttonElement) => {
-    const { mode } = gameState.getState();
-    const newModeValue = mode === 'light' ? 'dark' : 'light';
-    const content = `${newModeValue} Mode`;
+  /** @param {HTMLButtonElement} buttonElement
+   *  @param {string} theme
+   */
+  const setThemeButtonContent = (buttonElement, theme) => {
+    const newContentValue = theme === 'light' ? 'dark' : 'light';
+    const content = `${newContentValue} Mode`;
     const buttonToUpdate = buttonElement;
     buttonToUpdate.textContent = content;
 
-    gameState.updateState({ mode: newModeValue });
+    if (theme === 'dark') {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
   };
 
   const themeButton = button({
@@ -37,11 +43,16 @@ function createGameSettings(gameState, emitter) {
   });
   themeButton.classList.add(styles.fixed);
 
-  setThemeButtonContent(themeButton);
+  const initialTheme = gameState.getState().mode;
+  setThemeButtonContent(themeButton, initialTheme);
+
   themeButton.addEventListener('click', () => {
-    setThemeButtonContent(themeButton);
-    document.body.classList.toggle('dark');
-    emitter.emit('toggleTheme');
+    const { mode } = gameState.getState();
+    const newModeValue = mode === 'light' ? 'dark' : 'light';
+    setThemeButtonContent(themeButton, newModeValue);
+    gameState.updateState({ mode: newModeValue });
+
+    saveUserPreferences(gameState);
   });
 
   /**
@@ -66,6 +77,8 @@ function createGameSettings(gameState, emitter) {
     const { sound } = gameState.getState();
     gameState.updateState({ sound: !sound });
     setSoundButtonContent(soundButton, !sound);
+
+    saveUserPreferences(gameState);
   });
 
   settingsContainer.appendChild(resultsButton);

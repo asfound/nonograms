@@ -90,6 +90,7 @@ function createGameControls(gameState, templates, emitter, gameContainer) {
     continueButton.disabled = false;
   });
 
+
   controlsContainer.appendChild(resetButton);
   controlsContainer.appendChild(saveButton);
   controlsContainer.appendChild(solutionButton);

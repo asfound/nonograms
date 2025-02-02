@@ -26,6 +26,12 @@
  * @property {number} seconds
  */
 
+/**
+ * @typedef {Object} UserPreferences
+ *  @property {'light' | 'dark'} themeMode
+ *  @property {boolean} isSoundOn
+ */
+
 // game types
 /**
  * @typedef {Object} Template

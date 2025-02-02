@@ -7,6 +7,7 @@ import {
 import createGameState, {
   updateTemplateData,
 } from '@/components/game/gameState';
+import { loadUserPreferencesOrDefault } from '@/components/game/gameUtils';
 import templates from '@/components/game/templates';
 import createGameControls from '@/components/gameControls/gameControls';
 import createGameSettings from '@/components/gameSettings/gameSettings';
@@ -21,8 +22,9 @@ function initApp() {
   const emitter = createEventEmitter();
 
   const initialTemplate = templates[0];
+  const initialPreferences = loadUserPreferencesOrDefault();
 
-  const gameState = createGameState(initialTemplate);
+  const gameState = createGameState(initialTemplate, initialPreferences);
 
   createModal(emitter);
   createSoundManager(gameState, emitter);

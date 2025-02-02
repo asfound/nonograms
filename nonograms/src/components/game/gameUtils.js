@@ -3,6 +3,7 @@ import templates from '@/components/game/templates';
 const LS_PREFIX = 'asfound-nonograms';
 const LS_SCORE_KEY = `${LS_PREFIX}-score`;
 const LS_GAME_KEY = `${LS_PREFIX}-game`;
+const LS_PREFERENCES_KEY = `${LS_PREFIX}-preferences`;
 
 /**
  * @param {string} templateName
@@ -70,4 +71,33 @@ export function loadGameData() {
 
 export function hasSavedGame() {
   return localStorage.getItem(LS_GAME_KEY) !== null;
+}
+
+/**
+ * @returns {UserPreferences}
+ */
+export function loadUserPreferencesOrDefault() {
+  const userPreferences = localStorage.getItem(LS_PREFERENCES_KEY);
+  if (userPreferences) {
+    return JSON.parse(userPreferences);
+  }
+  return {
+    themeMode: 'light',
+    isSoundOn: true,
+  };
+}
+
+/**
+ *
+ * @param {GameState} gameState
+ */
+export function saveUserPreferences(gameState) {
+  const { mode, sound } = gameState.getState();
+
+  const preferences = {
+    themeMode: mode,
+    isSoundOn: sound,
+  };
+
+  localStorage.setItem(LS_PREFERENCES_KEY, JSON.stringify(preferences));
 }

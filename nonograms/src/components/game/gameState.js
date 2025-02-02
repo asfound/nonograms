@@ -5,9 +5,10 @@ import {
 
 /**
  * @param {Template} template
+ * @param {UserPreferences} userPreferences
  * @returns {GameState}
  */
-function createGameState(template) {
+function createGameState(template, userPreferences) {
   /** @type {State} */
   let state = {
     currentTemplateName: template.name,
@@ -17,8 +18,8 @@ function createGameState(template) {
     playerCorrectCellsCount: 0,
     isGameOver: true,
     elapsedTime: 0,
-    mode: 'light',
-    sound: true,
+    mode: userPreferences.themeMode,
+    sound: userPreferences.isSoundOn,
   };
 
   return {
