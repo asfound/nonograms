@@ -60,11 +60,12 @@ function createGameSettings(gameState, emitter) {
   });
 
   const initialMode = gameState.getState().sound;
+
   setSoundButtonContent(soundButton, initialMode);
   soundButton.addEventListener('click', () => {
     const { sound } = gameState.getState();
     gameState.updateState({ sound: !sound });
-    setSoundButtonContent(soundButton, sound);
+    setSoundButtonContent(soundButton, !sound);
   });
 
   settingsContainer.appendChild(resultsButton);
