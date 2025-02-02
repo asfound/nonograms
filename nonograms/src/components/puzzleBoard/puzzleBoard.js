@@ -83,7 +83,7 @@ function createPuzzleBoard(matrix, icon, emitter, userMatrix) {
         revealCell(cellElement, rowIndex, colIndex)
       );
 
-      cellElement.addEventListener('click', (event) => {
+      cellElement.addEventListener('mousedown', (event) => {
         if (event.button === 0) {
           const cellState = cellElement.getAttribute('data-state');
           const updatedCellState = cellState !== '1' ? '1' : '0';
