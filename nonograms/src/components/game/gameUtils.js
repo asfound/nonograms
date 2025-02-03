@@ -24,8 +24,6 @@ export function saveScore(templateName, seconds) {
   results.unshift({ name: templateName, size, seconds });
   const updatedResults = results.slice(0, 5);
 
-  updatedResults.sort((a, b) => a.seconds - b.seconds);
-
   localStorage.setItem(LS_SCORE_KEY, JSON.stringify(updatedResults));
 }
 

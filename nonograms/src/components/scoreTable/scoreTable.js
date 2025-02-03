@@ -25,6 +25,8 @@ function createScoreTable() {
     return p({ innerText: 'No results yet!' });
   }
 
+  scores.sort((a, b) => a.seconds - b.seconds);
+
   const headers = Object.keys(scores[0]);
 
   const tableElement = table({ className: styles.table });
