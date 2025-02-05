@@ -36,10 +36,13 @@ function createPuzzleBoard(matrix, icon, emitter, userMatrix) {
   tableBody.appendChild(topRowElement);
 
   tableBody.addEventListener(
-    'click',
+    'mousedown',
     (event) => {
       if (event.target instanceof HTMLTableCellElement) {
-        if (event.target.hasAttribute('data-state')) {
+        if (
+          event.target.hasAttribute('data-state') &&
+          (event.button === 0 || event.button === 2)
+        ) {
           emitter.emit(Events.GAME_STARTED);
         }
       }

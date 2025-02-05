@@ -33,7 +33,7 @@ function createScoreTable() {
 
   const tableTitle = caption({
     className: styles.title,
-    innerText: 'Best Results',
+    innerText: 'Latest Results',
   });
 
   tableElement.appendChild(tableTitle);
