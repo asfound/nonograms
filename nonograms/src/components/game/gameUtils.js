@@ -84,6 +84,8 @@ export function loadUserPreferencesOrDefault() {
   if (userPreferences) {
     return JSON.parse(userPreferences);
   }
+
+  // TODO: make constant
   return {
     themeMode: 'light',
     isSoundOn: true,

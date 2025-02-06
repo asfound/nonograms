@@ -45,6 +45,8 @@ function createPuzzleMenu(templates, emitter) {
     className: styles.select,
   });
 
+
+  // TODO change innerHTML to replaceChildren
   /** @param {number} selectedSize */
   const updateTemplateNames = (selectedSize) => {
     templateSelectElement.innerHTML = '';
@@ -87,6 +89,7 @@ function createPuzzleMenu(templates, emitter) {
     }
   });
 
+  // TODO: change random logic
   function selectRandomTemplate() {
     const currentTemplateName = templateSelectElement.value;
     const randomSize = SIZES[Math.floor(Math.random() * SIZES.length)].value;

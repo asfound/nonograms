@@ -2,6 +2,8 @@ import { calculateMinutes } from '@/components/game/gameUtils';
 import { div } from '@/utils/createElement';
 
 import styles from './timer.module.css';
+/** @typedef {import('@/types/types').GameState} GameState */
+/** @typedef {import('@/types/types').Timer} Timer */
 
 /**
  * @param {GameState} gameState
