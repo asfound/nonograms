@@ -7,8 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "deploy": "npm run build && gh-pages -d dist -e nonograms",
-    "prepare": "cd .. && husky nonograms/.husky",
+    "deploy": "npm run build && gh-pages -d dist",
+    "prepare": "husky .husky",
     "lint": "eslint .",
     "lint:fix": "eslint --fix ."
   },
